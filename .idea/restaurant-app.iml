@@ -132,6 +132,8 @@
     <orderEntry type="library" scope="PROVIDED" name="sshkit (v1.23.2, RVM: ruby-3.3.6 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="stimulus-rails (v1.3.4, RVM: ruby-3.3.6 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="stringio (v3.1.2, RVM: ruby-3.3.6 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="tailwindcss-rails (v3.1.0, RVM: ruby-3.3.6 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="tailwindcss-ruby (v3.4.17, RVM: ruby-3.3.6 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thor (v1.3.2, RVM: ruby-3.3.6 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thruster (v0.1.9, RVM: ruby-3.3.6 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="timeout (v0.4.3, RVM: ruby-3.3.6 [global]) [gem]" level="application" />
@@ -169,6 +171,9 @@
         <option value="devise:install" />
         <option value="devise:views" />
         <option value="erb:authentication" />
+        <option value="erb:controller" />
+        <option value="erb:mailer" />
+        <option value="erb:scaffold" />
         <option value="generator" />
         <option value="helper" />
         <option value="integration_test" />
@@ -191,6 +196,7 @@
         <option value="solid_queue:install" />
         <option value="stimulus" />
         <option value="system_test" />
+        <option value="tailwindcss:authentication" />
         <option value="task" />
         <option value="test_unit:authentication" />
         <option value="test_unit:channel" />
@@ -215,6 +221,9 @@
         <option value="devise:install" />
         <option value="devise:views" />
         <option value="erb:authentication" />
+        <option value="erb:controller" />
+        <option value="erb:mailer" />
+        <option value="erb:scaffold" />
         <option value="generator" />
         <option value="helper" />
         <option value="integration_test" />
@@ -237,6 +246,7 @@
         <option value="solid_queue:install" />
         <option value="stimulus" />
         <option value="system_test" />
+        <option value="tailwindcss:authentication" />
         <option value="task" />
         <option value="test_unit:authentication" />
         <option value="test_unit:channel" />
