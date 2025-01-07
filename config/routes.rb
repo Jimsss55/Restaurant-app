@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
-  resources :menu_items
   devise_for :users
+
+  resources :menu_items
+
+  root 'menu_items#index'
 end

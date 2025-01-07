@@ -1,5 +1,6 @@
 class MenuItemsController < ApplicationController
-  before_action :set_menu_item, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_menu_item, only: %i[ show edit update destroy create]
 
   # GET /menu_items or /menu_items.json
   def index
@@ -8,6 +9,8 @@ class MenuItemsController < ApplicationController
 
   # GET /menu_items/1 or /menu_items/1.json
   def show
+  rescue ActiveRecord::ActionNotFound
+    redirect_to root_path
   end
 
   # GET /menu_items/new
@@ -23,15 +26,23 @@ class MenuItemsController < ApplicationController
   def create
     @menu_item = MenuItem.new(menu_item_params)
 
-    respond_to do |format|
-      if @menu_item.save
-        format.html { redirect_to @menu_item, notice: "Menu item was successfully created." }
-        format.json { render :show, status: :created, location: @menu_item }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @menu_item.errors, status: :unprocessable_entity }
-      end
+    if @menu_item.save
+      notice :"Menu item was successfully created."
+      redirect_to @menu_item
+    else
+      alert :"Menu item was unsuccessfully"
+      render :new, status: :unprocessable_entity
     end
+
+    # respond_to do |format|
+    #   if @menu_item.save
+    #     format.html { redirect_to @menu_item, notice: "Menu item was successfully created." }
+    #     format.json { render :show, status: :created, location: @menu_item }
+    #   else
+    #     format.html { render :new, status: :unprocessable_entity }
+    #     format.json { render json: @menu_item.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /menu_items/1 or /menu_items/1.json
@@ -65,6 +76,6 @@ class MenuItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def menu_item_params
-      params.fetch(:menu_item, {})
+      params.require(:menu_item).permit(:menu_items, :menu_item_price)
     end
 end
