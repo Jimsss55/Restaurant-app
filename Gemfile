@@ -72,3 +72,5 @@ gem "tailwindcss-rails", "~> 3.1"
 gem "faker"
 
 gem 'pry', '~> 0.15.0'
+
+gem "will_paginate", "~> 4.0"

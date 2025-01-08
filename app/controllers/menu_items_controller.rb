@@ -5,7 +5,7 @@ class MenuItemsController < ApplicationController
 
   # GET /menu_items or /menu_items.json
   def index
-    @menu_items = MenuItem.all
+    @menu_items = MenuItem.paginate(page: params[:page], per_page: 5)
   end
 
   # GET /menu_items/1 or /menu_items/1.json
