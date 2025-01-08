@@ -11,7 +11,17 @@
     </div>
   <% end %>
 
+  <div>
+    <%= form.label :menu_items, "Menu Item"%>
+    <%= form.text_field :menu_items%>
+  </div>
+
+  <div>
+    <%= form.label :menu_item_price, "Price"%>
+    <%= form.number_field :menu_item_price, in: 1.0..1000.0%>
+  </div>
+
   <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <%= form.button class: "mt-3 rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>
