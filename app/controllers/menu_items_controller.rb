@@ -9,8 +9,6 @@ class MenuItemsController < ApplicationController
 
   # GET /menu_items/1 or /menu_items/1.json
   def show
-  rescue ActiveRecord::ActionNotFound
-    redirect_to root_path
   end
 
   # GET /menu_items/new
