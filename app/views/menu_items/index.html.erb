@@ -1,12 +1,12 @@
 <div class="mx-auto w-full">
   <% content_for :title, "Menu items" %>
 
-  <div class="apple_pagination">
-    <%= will_paginate @menu_items, :container => false %>
-  </div>
-
   <div class="flex justify-center items-center">
     <h1 class="font-bold text-4xl">Menu items</h1>
+  </div>
+
+  <div class="apple_pagination">
+    <%= will_paginate @menu_items, :container => false %>
   </div>
 
   <div class="mt-2 grid grid-cols-3 mx-8">
