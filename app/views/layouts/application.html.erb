@@ -25,16 +25,24 @@
       <% end %>
     </div>
 
-    <div>
-      <% if user_signed_in?%>
-        <%= link_to "Profile", edit_user_registration_path %>
-        <%#= link_to  "Create new Menu items", new_menu_item_path%>
-        <%= button_to "Log out", destroy_user_session_path, method: :delete %>
-      <%#else %>
-        <%#= link_to "Log in", new_user_session_path %>
-        <%#= link_to "Sign up", new_user_registration_path %>
-      <% end %>
-    </div>
+    <nav class="navbar">
+      <div>
+        Restaurant App
+      </div>
+      <div class="login">
+        <% if user_signed_in?%>
+          <%= link_to "Profile", edit_user_registration_path %>
+          <%#= link_to  "Create new Menu items", new_menu_item_path%>
+          <%= button_to "Log out", destroy_user_session_path, method: :delete %>
+          <%#else %>
+          <%#= link_to "Log in", new_user_session_path %>
+          <%#= link_to "Sign up", new_user_registration_path %>
+        <% end %>
+      </div>
+
+    </nav>
+
+
     <%= yield %>
   </body>
 </html>
