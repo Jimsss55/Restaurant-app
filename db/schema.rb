@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_09_123537) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_10_054711) do
   create_table "customer_tables", force: :cascade do |t|
     t.integer "customer_table_number"
     t.datetime "created_at", null: false
@@ -30,6 +30,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_09_123537) do
     t.float "menu_item_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.integer "menu_item_id"
+    t.integer "customer_id"
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_order_items_on_customer_id"
+    t.index ["menu_item_id"], name: "index_order_items_on_menu_item_id"
   end
 
   create_table "sessions", force: :cascade do |t|

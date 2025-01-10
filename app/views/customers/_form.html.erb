@@ -2,7 +2,6 @@
   <% if customer.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
-
       <ul>
         <% customer.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -18,7 +17,8 @@
 
   <div>
     <%= form.label :customer_table_id, "Customer Table Number: " %>
-    <%= form.number_field :customer_table_id %>
+    <%= form.select :customer_table_id, CustomerTable.all.collect {|table| [table.customer_table_number] },
+        {prompt: "Select Table"}%>
   </div>
 
   <div class="inline">

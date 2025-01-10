@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!
   before_action :set_customer, only: %i[ show destroy ]
 
   def index
@@ -7,6 +7,8 @@ class CustomersController < ApplicationController
   end
   # GET /customers/1 or /customers/1.json
   def show
+    @order_items = @customer.order_items.includes(:menu_item)
+    @grand_total = @order_items.sum("menu_item_price * quantity")
   end
 
   # GET /customers/new
