@@ -1,0 +1,25 @@
+<div class="mx-auto md:w-2/3 w-full flex">
+  <div class="mx-auto">
+
+    <table class="table-auto border-separate border-spacing-2 ">
+      <thead>
+        <tr>
+          <th >Customer Name</th>
+          <th>Customer table number</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td><%= @customer.customer_name %></td>
+          <td><%= @customer.customer_table_id %></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <%= link_to "Back to customers", customers_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <div class="inline-block ml-2">
+      <%= button_to "Destroy this customer", @customer, method: :delete, data: {turbo_confirm: "Are you sure?"}, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+    </div>
+  </div>
+</div>

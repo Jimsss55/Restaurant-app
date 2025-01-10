@@ -1,5 +1,5 @@
 class CustomerTablesController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [ :index ]
   before_action :set_customer_table, only: %i[ show edit update destroy ]
 
   # GET /customer_tables or /customer_tables.json
@@ -46,7 +46,6 @@ class CustomerTablesController < ApplicationController
   # DELETE /customer_tables/1 or /customer_tables/1.json
   def destroy
     @customer_table.destroy!
-    flash[:notice] = "Customer table was successfully deleted"
     flash[:notice] = "Customer table was successfully deleted"
     redirect_to customer_tables_path
   end

@@ -6,6 +6,12 @@
       </h2>
     </div>
 
+    <p class="mt-2 text-center text-sm text-gray-600">
+      Or <%= link_to "Sign in", new_user_session_path,
+                     class: "font-medium text-indigo-600 hover:text-indigo-500" %>
+    </p>
+
+
     <%= form_for(resource, as: resource_name, url: user_registration_path) do |f| %>
       <div class="mt-8 space-y-6">
         <input type="hidden" name="remember" value="true">

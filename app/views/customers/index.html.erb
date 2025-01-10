@@ -1,0 +1,27 @@
+<div class="w-full">
+  <% content_for :title, "Customers" %>
+
+<!--  <div class="apple_pagination">-->
+    <%#= will_paginate @customer_tables, :container => false %>
+<!--  </div>-->
+
+  <div class="flex justify-center items-center">
+    <h1 class="font-bold text-2xl">Customers</h1>
+
+  </div>
+
+  <div id="customers" class="min-w-full">
+    <% @customers.each do |customer| %>
+      <div class="grid grid-cols-3 mx-8">
+        <h3>Customer name: <%= customer.customer_name %></h3>
+        <h3>Customer table number: <%= customer.customer_table_id %></h3>
+        <p>
+          <%= link_to "Show this Customer", customer, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+<%#= link_to "New customer", new_customer_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>

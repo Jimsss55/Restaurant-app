@@ -1,6 +1,6 @@
 require 'pry'
 class MenuItemsController < ApplicationController
-  before_action :authenticate_user!, except: [ :index, :show ]
+  before_action :authenticate_user!, except: [ :index ]
   before_action :set_menu_item, only: %i[ show edit update destroy]
 
   # GET /menu_items or /menu_items.json
