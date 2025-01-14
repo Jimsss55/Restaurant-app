@@ -29,6 +29,8 @@ class CustomersController < ApplicationController
 
   # DELETE /customers/1 or /customers/1.json
   def destroy
+    # @customer.order_items.destroy
+    # flash[:notice] = "Customer order item was successfully destroyed"
     @customer.destroy!
     flash[:notice] = "Customer was successfully destroyed"
     # redirect_to customer_table_path

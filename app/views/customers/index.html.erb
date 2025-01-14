@@ -16,10 +16,16 @@
         <h3>Customer name: <%= customer.customer_name %></h3>
         <h3>Customer table number: <%= customer.customer_table_id %></h3>
         <p>
-          <%= link_to "Show this Customer", customer, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+          <%= link_to "Show this Customer", customer,
+                      class: "mt-1 ml-2 rounded-lg py-3 px-5 bg-gray-200 hover:bg-gray-100 inline-block font-medium" %>
         </p>
       </div>
     <% end %>
+  </div>
+
+  <div class="flex justify-center">
+    <%= link_to "Add Customer", new_customer_path,
+                class: "mt-2 ml-2 rounded-lg py-3 px-5 bg-green-300 hover:bg-green-200 inline-block font-medium" %>
   </div>
 </div>
 

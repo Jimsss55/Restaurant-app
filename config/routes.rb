@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
-  resources :order_items
 
-  resources :customers, except: [ :edit, :update ] do
-    resources :order_items, only: [ :new, :create ]
+  resources :customers do
+    resources :order_items, except: [ :index ]
   end
 
   devise_for :users

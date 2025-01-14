@@ -3,6 +3,8 @@
 
   <%= render "form", order_item: @order_item %>
 
-  <%= link_to "Back to order items", order_items_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <%= link_to "Back to order items", customer_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <%= button_to "Delete to order items", customer_path, method: :delete, data: {turbo_confirm: "Are you sure?"},
+                class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 
 </div>
