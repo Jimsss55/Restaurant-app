@@ -1,6 +1,6 @@
 class CustomersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_customer, only: %i[ show destroy ]
+  before_action :set_customer, only: %i[ destroy show ]
 
   def index
     @customers = Customer.all
@@ -29,17 +29,15 @@ class CustomersController < ApplicationController
 
   # DELETE /customers/1 or /customers/1.json
   def destroy
-    # @customer.order_items.destroy
-    # flash[:notice] = "Customer order item was successfully destroyed"
     @customer.destroy!
     flash[:notice] = "Customer was successfully destroyed"
-    redirect_to customer_path
+    redirect_to customers_path
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_customer
-      @customer = Customer.find(params.expect(:id))
+      @customer = Customer.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

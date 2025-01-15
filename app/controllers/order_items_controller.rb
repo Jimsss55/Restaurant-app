@@ -2,12 +2,8 @@ require "pry"
 
 class OrderItemsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_customer, only: [ :new, :create, :edit ]
-  before_action :set_order_item, only: %i[ update edit destroy]
-
-  # GET /order_items/1 or /order_items/1.json
-  # def show
-  # end
+  before_action :set_customer, only: [ :new, :create, :edit, :destroy ]
+  before_action :set_order_item, only: %i[ update edit ]
 
   # GET /order_items/new
   def new
@@ -33,17 +29,17 @@ class OrderItemsController < ApplicationController
   def update
     if @order_item.update(order_item_params)
       flash[:notice] = "Order item was successfully updated"
-      redirect_to customers_path(@customer)
+      redirect_to customer_path(@order_item.customer_id)
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /order_items/1 or /order_items/1.json
   def destroy
+    @order_item = @customer.order_items.find(params[:id])
     @order_item.destroy!
     flash[:notice] = "Order item was successfully destroyed"
-    redirect_to customer_path
+    redirect_to customer_path(@order_item.customer_id)
   end
 
   private
