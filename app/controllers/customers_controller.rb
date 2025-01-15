@@ -33,7 +33,7 @@ class CustomersController < ApplicationController
     # flash[:notice] = "Customer order item was successfully destroyed"
     @customer.destroy!
     flash[:notice] = "Customer was successfully destroyed"
-    # redirect_to customer_table_path
+    redirect_to customer_path
   end
 
   private

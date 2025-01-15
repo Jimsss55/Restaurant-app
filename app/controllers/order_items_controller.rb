@@ -1,13 +1,13 @@
-require 'pry'
+require "pry"
 
 class OrderItemsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_customer, only: [ :new, :create ]
-  before_action :set_order_item, only: %i[ show edit update destroy]
+  before_action :set_customer, only: [ :new, :create, :edit ]
+  before_action :set_order_item, only: %i[ update edit destroy]
 
   # GET /order_items/1 or /order_items/1.json
-  def show
-  end
+  # def show
+  # end
 
   # GET /order_items/new
   def new
@@ -27,19 +27,13 @@ class OrderItemsController < ApplicationController
     end
   end
 
-
-  # GET /order_items/1/edit
   def edit
-    @customer = OrderItem.find(params[:id]).customer
   end
 
-  # PATCH/PUT /order_items/1 or /order_items/1.json
   def update
-    @customer = OrderItem.find[params[:id]].customer
     if @order_item.update(order_item_params)
       flash[:notice] = "Order item was successfully updated"
-      redirect_to @order_item
-
+      redirect_to customers_path(@customer)
     else
       render :edit, status: :unprocessable_entity
     end
@@ -49,7 +43,7 @@ class OrderItemsController < ApplicationController
   def destroy
     @order_item.destroy!
     flash[:notice] = "Order item was successfully destroyed"
-    redirect_to order_items_path
+    redirect_to customer_path
   end
 
   private
@@ -59,11 +53,10 @@ class OrderItemsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_order_item
-    @order_item = OrderItem.find(params.expect(:id))
+    @order_item = OrderItem.find(params[:id])
   end
 
-    # Only allow a list of trusted parameters through.
   def order_item_params
-    params.require(:order_item).permit(:menu_item_id, :customer_id, :quantity)
+    params.require(:order_item).permit(:menu_item_id, :quantity)
   end
 end
