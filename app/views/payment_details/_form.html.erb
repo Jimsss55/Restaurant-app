@@ -1,8 +1,7 @@
-<%= form_with(model: payment_detail, class: "contents") do |form| %>
+<%= form_with(model: [customer, payment_detail], class: "contents", local: true) do |form| %>
   <% if payment_detail.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(payment_detail.errors.count, "error") %> prohibited this payment_detail from being saved:</h2>
-
       <ul>
         <% payment_detail.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -11,7 +10,21 @@
     </div>
   <% end %>
 
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  <div class="px-5 py-3">
+    <%= form.label :payment_amt, "Payment Amount" , class: "px-5 py-3"%>
+    <strong>Nu. <%= @total_payment %></strong>
+  </div>
+
+  <div class="px-5 py-3">
+    <%= form.label :email, "Email", required: true, class: "px-5 py-3"%>
+    <%= form.email_field :email %>
+  </div>
+
+  <div id="customer_payment">
+    <%= render :template => "customers/show" %>
+  </div>
+
+  <div class="flex justify-center px-4 py-3">
+    <%= form.submit "Done Payment", class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>

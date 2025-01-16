@@ -34,7 +34,7 @@
             <td class="border border-gray-300 px-4 py-2"><%= order_item.menu_item.menu_item_price %></td>
             <td class="border border-gray-300 px-4 py-2"><%= order_item.menu_item.menu_item_price * order_item.quantity %></td>
             <td class="border border-gray-300 px-4 py-2"><%= link_to "Edit",
-                                                                     edit_customer_order_item_path(@customer.id, order_item),
+                                                                     edit_customer_order_item_path(@customer.id, order_item, {source: @source}),
                                                                      class: "ml-2 rounded-lg py-3 px-5 bg-green-300
                                                                      inline-block font-medium" %>
             </td>
@@ -51,19 +51,18 @@
     <%end %>
 
     <div class="mt-5 flex justify-center">
-      <%= link_to "Add Order Items", new_customer_order_item_path(@customer), class: "ml-2 rounded-lg py-3 px-5 bg-green-300
+      <%= link_to "Add Order Items", new_customer_order_item_path(@customer, {source: @source}), class: "ml-2 rounded-lg py-3 px-5 bg-green-300
       inline-block font-medium" %>
+
       <%= link_to "Back to customers", customers_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-200
-      inline-block font-medium" %>
+        inline-block font-medium" %>
     </div>
 
-    <div class="flex justify-center inline-block ml-2">
-      <%= button_to "Destroy this customer", @customer, method: :delete, data: {turbo_confirm: "Are you sure?"},
-                    class: "mt-2 rounded-lg py-3 px-5 bg-red-100 font-medium" %>
-    </div>
-
-<!--    <div class="flex justify-center inline-block ml-2">-->
-      <%#= link_to "Checkout this customer", @customer, class: "mt-2 rounded-lg py-3 px-5 bg-red-100 font-medium" %>
-<!--    </div>-->
+    <% unless controller_name == 'payment_details' %>
+      <div class="flex justify-center inline-block ml-2">
+        <%= link_to "Checkout this customer", new_customer_payment_detail_path(@customer, @payment_detail), class: "mt-2 rounded-lg py-3 px-5 bg-red-100 font-medium" %>
+      </div>
+    <% end %>
   </div>
+
 </div>

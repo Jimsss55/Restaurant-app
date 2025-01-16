@@ -1,4 +1,8 @@
-<%= form_with(model: [customer, order_item], class: "contents", local: true) do |form| %>
+<%= form_with(model: [customer, order_item],
+              url: order_item.new_record? ? customer_order_items_path(@customer, {source: @source})
+                     : customer_order_item_path(@customer, @order_item, source: @source),
+              class: "contents", local: true) do |form| %>
+
   <% if order_item.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(order_item.errors.count, "error") %> prohibited this order_item from being saved:</h2>
@@ -13,7 +17,6 @@
 
   <div>
     <%= form.label :menu_item_id, "Menu Items "%>
-    <%#= form.number_field :menu_item_id%>
     <%= form.select :menu_item_id,
                     MenuItem.all.collect {|menu_item| [menu_item.menu_items, menu_item.id] },
                     { prompt: "Select a menu Item"} %>

@@ -1,48 +1,36 @@
 class PaymentDetailsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_payment_detail, only: %i[ show edit update destroy ]
+  before_action :set_customer, only: %i[ new create]
 
-  # GET /payment_details or /payment_details.json
-  def index
-    @payment_details = PaymentDetail.all
-  end
-
-  # GET /payment_details/1 or /payment_details/1.json
-  def show
-  end
-
-  # GET /payment_details/new
   def new
     @payment_detail = PaymentDetail.new
+    @order_items = @customer.order_items.includes(:menu_item)
+    @total_payment = @order_items.sum("menu_item_price * quantity")
+    @source = "payment_detail"
   end
 
-  # POST /payment_details or /payment_details.json
   def create
-    @payment_detail = PaymentDetail.new(payment_detail_params)
+    @payment_detail = @customer.build_payment_detail(payment_detail_params)
+    @payment_detail.payment_amt = @total_payment
 
     if @payment_detail.save
       flash[:notice] = "Payment detail was successfully created"
-      redirect_to @payment_detail
+      redirect_to customers_path
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  # DELETE /payment_details/1 or /payment_details/1.json
-  def destroy
-    @payment_detail.destroy!
-    flash[:notice] = "Payment detail was successfully destroyed"
-    redirect_to customer_payment_detail_path
-  end
-
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_payment_detail
       @payment_detail = PaymentDetail.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
+    def set_customer
+      @customer = Customer.find(params[:customer_id])
+    end
+
     def payment_detail_params
-      params.require(:payment_details).permit(:customer_id, :payment_amt, :email)
+      params.require(:payment_detail).permit(:email)
     end
 end

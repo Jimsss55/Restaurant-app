@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :customers do
     resources :order_items, except: [ :index ]
-    resources :payment_details, except: [ :update, :edit]
+    resources :payment_details, except: [ :update, :edit ]
   end
 
   devise_for :users

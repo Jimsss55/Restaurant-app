@@ -1,6 +1,6 @@
 class CustomersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_customer, only: %i[ destroy show ]
+  before_action :set_customer, only: %i[ show ]
 
   def index
     @customers = Customer.all
@@ -27,12 +27,6 @@ class CustomersController < ApplicationController
     end
   end
 
-  # DELETE /customers/1 or /customers/1.json
-  def destroy
-    @customer.destroy!
-    flash[:notice] = "Customer was successfully destroyed"
-    redirect_to customers_path
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
