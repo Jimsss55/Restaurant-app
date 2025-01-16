@@ -1,0 +1,35 @@
+<h1>Payment Details</h1>
+
+<p>Dear <%= @customer.customer_name %></p>
+
+<p>Thank you for your payments. Here are your payment details: </p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Menu Item</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @customer.order_items.includes(:menu_item).each do |order_item| %>
+      <tr>
+        <td><%= order_item.menu_item.menu_items %></td>
+        <td><%= order_item.quantity %></td>
+        <td><%= order_item.menu_item.menu_item_price %></td>
+        <td><%= order_item.menu_item.menu_item_price * order_item.quantity %></td>
+      </tr>
+    <% end %>
+
+    <tr >
+      <td>Grand Total</td>
+      <td colspan="2"><strong><%= @customer.order_items.includes(:menu_item).sum("menu_item_price * quantity") %></strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If you have any queries, please contact us</p>
+<P>Thank you</P>

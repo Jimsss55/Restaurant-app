@@ -17,11 +17,12 @@
 
         <tbody>
         <% @customers.each do |customer| %>
+         <% total=customer.order_items.includes(:menu_item).sum("menu_item_price * quantity") %>
           <tr>
             <td class="border border-gray-300 px-4 py-2"><%= customer.customer_name %></td>
             <td class="border border-gray-300 px-4 py-2"><%= customer.customer_table_id %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= @payment_status %></td>
-            <td class="border border-gray-300 px-4 py-2"><strong>Nu.<%= @grand_total %></strong></td>
+            <td class="border border-gray-300 px-4 py-2"><%= %></td>
+            <td class="border border-gray-300 px-4 py-2"><strong>Nu.<%= total %></strong></td>
             <td class="border border-gray-300 px-4 py-2"><%= link_to "Show this Customer",customer,
                                                                      class: "mt-1 ml-1 rounded-lg py-3 px-5 bg-gray-200
                                                                      hover:bg-gray-100 inline-block font-medium" %>

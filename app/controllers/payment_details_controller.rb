@@ -14,7 +14,8 @@ class PaymentDetailsController < ApplicationController
     @payment_detail.payment_amt = @total_payment
 
     if @payment_detail.save
-      flash[:notice] = "Payment detail was successfully created"
+      PaymentMailer.payment_detail_email(@customer, @payment_detail).deliver_now
+      flash[:notice] = "Payment detail was successfully created and emailed to the customer"
       redirect_to customers_path
     else
       render :new, status: :unprocessable_entity
