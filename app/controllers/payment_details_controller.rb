@@ -15,6 +15,7 @@ class PaymentDetailsController < ApplicationController
 
     if @payment_detail.save
       PaymentMailer.payment_detail_email(@customer, @payment_detail).deliver_now
+      @customer.update(payment_status: "Payment Done")
       flash[:notice] = "Payment detail was successfully created and emailed to the customer"
       redirect_to customers_path
     else
