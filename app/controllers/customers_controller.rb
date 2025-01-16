@@ -4,6 +4,11 @@ class CustomersController < ApplicationController
 
   def index
     @customers = Customer.all
+
+    @customers.each do |customer|
+      @order_items = customer.order_items.includes(:menu_item)
+      @grand_total = @order_items.sum("menu_item_price * quantity")
+    end
   end
   # GET /customers/1 or /customers/1.json
   def show
