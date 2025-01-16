@@ -25,16 +25,6 @@
       <% end %>
     </div>
 
-    <div class="login">
-      <%#= render "layouts/navigation" %>
-      <% if user_signed_in? %>
-        <%= link_to "View Menu Items", menu_items_path %>
-        <%= link_to "View Customer Tables", customer_tables_path %>
-        <%= link_to "View Customers", customers_path %>
-       <%= button_to "Log Out", destroy_user_session_path, method: :delete %>
-      <% end %>
-    </div>
-
     <%= yield %>
   </body>
 </html>

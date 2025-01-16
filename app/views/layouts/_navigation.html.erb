@@ -1,59 +1,36 @@
-<nav>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <%= link_to "Menu Items", menu_items_path, class: "nav-link" %>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Ruby Restaurant
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <% if user_signed_in? %>
-            <%= link_to "View Menu Items", menu_items_path %>
-            <%= link_to "View Customer Tables", customer_tables_path %>
-            <%= link_to "View Customers", customers_path %>
-            <%= button_to "Log Out", destroy_user_session_path, method: :delete %>
-          <% end %>
-          <%= link_to "View Menu Items", menu_items_path, class: "dropdown-item" %>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Categories
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <% if user_signed_in?%>
-            <%= link_to "Create new Menu Item", new_menu_item_path, class: "dropdown-item" %>
-          <% end %>
-          <%= link_to "View Menu Items", menu_items_path, class: "dropdown-item" %>
-        </div>
-      </li>
-      <% if user_signed_in? %>
-        <li class="nav-item dropdown">
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <%= link_to "View your profile", users_path(current_user), class: "dropdown-item" %>
-            <%= link_to "Edit your profile", edit_user_registration_path(current_user), class: "dropdown-item" %>
-            <%= link_to "Delete profile", users_path(current_user), class: "dropdown-item text-danger", method: :delete, data: { confirm: "Are you sure?" } %>
-          </div>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Logout', destroy_user_session_path, class: "nav-link", method: :delete %>
-        </li>
-      <% else %>
-        <li class="nav-item">
+<nav class="bg-green-100">
+  <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+    <div class="relative flex h-16 items-center justify-between">
+      <div class="flex space-x-4">
+        <% if user_signed_in? %>
+
+          <%unless controller_name== "menu_items"%>
+            <a class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">
+              <%= link_to "Menu Items", menu_items_path %>
+            </a>
+            <%end %>
+
+          <%unless  controller_name == "customer_tables"%>
+            <a class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
+              <%= link_to "Customer Tables", customer_tables_path %>
+            </a>
+            <%end %>
+
+          <%unless controller_name=="customers"%>
+            <a class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
+              <%= link_to "Customers", customers_path %>
+            </a>
+            <%end %>
+
+            <a class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
+              <%= button_to "Log Out", destroy_user_session_path, method: :delete %>
+            </a>
+
+        <% else %>
           <%= link_to 'Log in', new_user_session_path, class: "nav-link" %>
-        </li>
-        <li class="nav-item">
           <%= link_to 'Sign up', new_user_registration_path, class: "nav-link" %>
-        </li>
-      <% end %>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+        <% end %>
+      </div>
+    </div>
   </div>
 </nav>

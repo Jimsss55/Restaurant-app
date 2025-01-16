@@ -1,6 +1,10 @@
 <div class="mx-auto w-full">
   <% content_for :title, "Customer Tables" %>
 
+  <div>
+    <%= render 'layouts/navigation' %>
+  </div>
+
   <div class="apple_pagination">
     <%= will_paginate @customer_tables, :container => false %>
   </div>
