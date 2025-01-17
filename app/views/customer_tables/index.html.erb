@@ -19,10 +19,10 @@
 
   <div id="customer_table" class="w-full">
     <% @customer_tables.each do |table| %>
-      <div class="grid grid-cols-3 mx-8">
+      <div class="grid grid-cols-3 mx-8 px-4 py-2">
         <h3>Table Number: <%= table.customer_table_number %></h3>
         <p>
-          <%= link_to "Show this Customer table", table, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+          <%= link_to "Show this Customer table", table, class: "ml-2 rounded-lg py-3 px-5 bg-gray-300 inline-block font-medium" %>
         </p>
       </div>
     <% end %>
@@ -34,7 +34,7 @@
 
   <div class="mt-2 flex inline-block items-center justify-center">
     <p>
-      <%= link_to "Add Customer table", new_customer_table_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100
+      <%= link_to "Add Customer table", new_customer_table_path, class: "ml-2 rounded-lg py-3 px-5 bg-green-300
       inline-block font-medium"  %>
     </p>
   </div>

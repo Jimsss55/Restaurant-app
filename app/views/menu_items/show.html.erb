@@ -1,13 +1,16 @@
 <div class="mx-auto md:w-2/3 w-full flex">
   <div class="mx-auto">
 
-    <%= @menu_item.menu_items %>
-    <%= @menu_item.menu_item_price %>
+    <div>
+      <strong><%= @menu_item.menu_items%></strong>
+      <strong><%= @menu_item.menu_item_price %></strong>
+    </div>
 
-    <%= link_to "Edit this menu item", edit_menu_item_path(@menu_item), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Back to menu items", menu_items_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this menu item", edit_menu_item_path(@menu_item), class: "mt-2 rounded-lg py-3 px-5 bg-green-300 inline-block font-medium" %>
+    <%= link_to "Back to menu items", menu_items_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-300 inline-block font-medium" %>
     <div class="inline-block ml-2">
-      <%= button_to "Delete this menu item", @menu_item, method: :delete, data: {turbo_confirm: "Are you sure?"}, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      <%= button_to "Delete this menu item", @menu_item, method: :delete, data: {turbo_confirm: "Are you sure?"},
+                    class: "mt-2 rounded-lg py-3 px-5 bg-red-100 font-medium" %>
     </div>
   </div>
 </div>

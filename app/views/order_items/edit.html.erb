@@ -5,8 +5,8 @@
 
   <%= link_to (@source.present? ? "Back to Payment Details" : "Back to order items"),
               (@source.present? ? new_customer_payment_detail_path(@customer, {source: @source}) : customer_path(@order_item.customer_id)),
-              class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+              class: "ml-2 rounded-lg py-3 px-5 bg-gray-300 inline-block font-medium" %>
   <%= button_to "Delete this order item", customer_order_item_path(@customer, @order_item, {source: @source}), method: :delete, data: {turbo_confirm: "Are you sure?"},
-                class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+                class: "ml-2 rounded-lg py-3 px-5 bg-red-100 inline-block font-medium" %>
 
 </div>

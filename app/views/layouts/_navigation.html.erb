@@ -1,36 +1,35 @@
-<nav class="bg-green-100">
-  <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+<nav class="bg-gray-800">
+  <div class="mx-auto max-w-7xl px-1 sm:px-6 lg:px-8">
     <div class="relative flex h-16 items-center justify-between">
-      <div class="flex space-x-4">
-        <% if user_signed_in? %>
+      <div class="flex space-around">
 
+        <% if user_signed_in? %>
           <%unless controller_name== "menu_items"%>
-            <a class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">
-              <%= link_to "Menu Items", menu_items_path %>
-            </a>
-            <%end %>
+            <%= link_to "Menu Items", menu_items_path,
+                        class: "rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700 hover:text-white"%>
+          <%end %>
 
           <%unless  controller_name == "customer_tables"%>
-            <a class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
-              <%= link_to "Customer Tables", customer_tables_path %>
-            </a>
-            <%end %>
+            <%= link_to "Customer Tables", customer_tables_path,
+                        class: "rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700 hover:text-white" %>
+          <%end %>
 
           <%unless controller_name=="customers"%>
-            <a class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
-              <%= link_to "Customers", customers_path %>
-            </a>
-            <%end %>
-
-            <a class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
-              <%= button_to "Log Out", destroy_user_session_path, method: :delete %>
-            </a>
+            <%= link_to "Customers", customers_path,
+                        class: "rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700 hover:text-white"%>
+          <%end %>
 
         <% else %>
-          <%= link_to 'Log in', new_user_session_path, class: "nav-link" %>
-          <%= link_to 'Sign up', new_user_registration_path, class: "nav-link" %>
+          <%= link_to 'Log in', new_user_session_path,
+                      class: "rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700 hover:text-white"%>
+          <%= link_to 'Sign up', new_user_registration_path,
+                      class: "rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700 hover:text-white"%>
         <% end %>
       </div>
+      <% if user_signed_in?%>
+        <%= button_to "Log Out", destroy_user_session_path, method: :delete,
+                      class: "rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700 hover:text-white"%>
+      <%end %>
     </div>
   </div>
 </nav>

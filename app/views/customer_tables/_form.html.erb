@@ -12,11 +12,13 @@
   <% end %>
 
   <div>
-    <%= form.label :customer_table_number, "Customer Table Number"%>
-    <%= form.number_field :customer_table_number, in: 1..50%>
+    <strong><%= form.label :customer_table_number, "Customer Table Number"%></strong>
+    <%= form.number_field :customer_table_number, in: 1..50,
+                          class: "mt-1 block px-3 py-1 bg-white border border-slate-300 rounded-md text-sm shadow-sm
+                          focus:outline-none focus:border-red-100 focus:ring-1 focus:ring-sky-500"%>
   </div>
 
   <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit class: "mt-2 rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>
