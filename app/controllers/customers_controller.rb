@@ -3,7 +3,7 @@ class CustomersController < ApplicationController
   before_action :set_customer, only: %i[ show ]
 
   def index
-    @customers = Customer.all
+    @customers = Customer.order(created_at: :desc).paginate(page: params[:page], per_page: 4)
   end
   def show
     @order_items = @customer.order_items.includes(:menu_item)

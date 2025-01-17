@@ -17,8 +17,10 @@
 
   <div>
     <%= form.label :customer_table_id, "Customer Table Number: " %>
-    <%= form.select :customer_table_id, CustomerTable.all.collect {|table| [table.customer_table_number] },
-        {prompt: "Select Table"}%>
+    <%= form.select :customer_table_id, CustomerTable.all.collect {|table| [table.customer_table_number, table.id] },
+        {prompt: "Select Table"},
+                    class: "mt-1 block px-3 py-1 bg-white border border-slate-300 rounded-md text-sm shadow-sm
+                          focus:outline-none focus:border-red-100 focus:ring-1 focus:ring-sky-500"%>
   </div>
 
   <div class="inline">

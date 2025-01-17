@@ -22,7 +22,9 @@
             <th>Quantity</th>
             <th>Price</th>
             <th>Total (Nu)</th>
-            <th>Action</th>
+            <% unless @customer.payment_status == "Payment Done" %>
+              <th>Action</th>
+            <%end %>
           </tr>
         </thead>
 
@@ -33,18 +35,20 @@
             <td class="border border-gray-300 px-4 py-2"><%= order_item.quantity %></td>
             <td class="border border-gray-300 px-4 py-2"><%= order_item.menu_item.menu_item_price %></td>
             <td class="border border-gray-300 px-4 py-2"><%= number_with_precision(order_item.menu_item.menu_item_price * order_item.quantity, precision: 2)%></td>
-            <td class="border border-gray-300 px-4 py-2"><%= link_to "Edit",
+            <% unless @customer.payment_status == "Payment Done" %>
+              <td class="border border-gray-300 px-4 py-2"><%= link_to "Edit",
                                                                      edit_customer_order_item_path(@customer.id, order_item, {source: @source}),
                                                                      class: "ml-2 rounded-lg py-3 px-5 bg-green-300
                                                                      inline-block font-medium" %>
-            </td>
+              </td>
+            <%end %>
           </tr>
           <% end %>
           <tr>
             <td class="border border-gray-300 px-4 py-2"><strong>Grand Total</strong></td>
             <td></td>
             <td></td>
-            <td class="border border-gray-300 px-4 py-2">Nu.
+            <td colspan="2" class="border border-gray-300 px-4 py-2">Nu.
               <%= controller_name == "payment_details" ? @total_payment : @grand_total %>
             </td>
           </tr>
