@@ -1,10 +1,14 @@
 class CustomersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_customer, only: %i[ show ]
+  before_action :set_customer, only: %i[ show update_payment]
 
   def index
     @customers = Customer.order(created_at: :desc).paginate(page: params[:page], per_page: 4)
   end
+
+  def update_payment
+  end
+
   def show
     @order_items = @customer.order_items.includes(:menu_item)
     @grand_total = @order_items.sum("menu_item_price * quantity")
