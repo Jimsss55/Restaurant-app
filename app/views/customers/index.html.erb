@@ -9,19 +9,19 @@
 
     <div class="px-4 py-2">
       <%= form_with url: customers_path, method: :get do |form| %>
-        <%= form.label :query, "Search Customer: ", class: "text-sm italic font-bold px-3"%>
-        <%= form.text_field :query, placeholder: "Enter the name of the customer",
+        <%= form.label :query, "Search Customer by name: ", class: "text-sm italic font-bold px-3"%>
+        <%= form.text_field :query, value: params[:query], placeholder: "Enter the name of the customer",
                             class: "rounded-md border"%>
         <%= form.submit "Search",
                         class: "rounded-md py-1 px-3 bg-blue-600 text-white font-medium cursor-pointer hover:bg-gray-700"%>
       <% end %>
     </div>
 
-    <div class="apple_pagination">
-      <%= will_paginate @menu_items, :container => false %>
-    </div>
-
     <% if @customers.any? %>
+      <div class="apple_pagination">
+        <%= will_paginate @menu_items, :container => false %>
+      </div>
+
       <table class="mt-3 table-auto px-5 bg-white border border-gray-300">
         <thead class="bg-pink-500 text-white">
         <tr>
@@ -57,13 +57,20 @@
         <% end %>
         </tbody>
       </table>
-    <%end %>
 
     <div class="apple_pagination">
       <%= will_paginate @menu_items, :container => false %>
     </div>
 
+    <% else %>
+      <p class="flex justify-center text-red-500">No Customer Name: <%= params[:query] %> found</p>
+    <%end %>
+
     <div class="flex justify-center">
+      <% if params[:query].present? %>
+        <%= link_to "Back to Customer", customers_path,
+                    class: "mt-2 ml-2 rounded-lg py-3 px-5 bg-gray-300 hover:bg-green-200 inline-block font-medium"%>
+      <%end %>
       <%= link_to "Add Customer", new_customer_path,
                   class: "mt-2 ml-2 rounded-lg py-3 px-5 bg-green-300 hover:bg-green-200 inline-block font-medium" %>
     </div>

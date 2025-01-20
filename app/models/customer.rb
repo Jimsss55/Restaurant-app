@@ -5,4 +5,12 @@ class Customer < ApplicationRecord
   has_one :payment_detail, dependent: :destroy
 
   validates :customer_name, presence: true
+
+  def self.search_by_name(query)
+    if query.present?
+      where("customer_name LIKE ?", "%#{query}%")
+    else
+      all
+    end
+  end
 end

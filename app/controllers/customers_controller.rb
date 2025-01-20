@@ -3,7 +3,7 @@ class CustomersController < ApplicationController
   before_action :set_customer, only: %i[ show ]
 
   def index
-    @customers = Customer.order(created_at: :desc).paginate(page: params[:page], per_page: 4)
+    @customers = Customer.order(created_at: :desc).search_by_name(params[:query]).paginate(page: params[:page], per_page: 4)
   end
 
   def show
