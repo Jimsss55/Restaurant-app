@@ -15,16 +15,16 @@
     </div>
   <% end %>
 
-  <div>
+  <div class="px-4 py-2">
     <%= form.label :menu_item_id, "Menu Items "%>
     <%= form.select :menu_item_id,
                     MenuItem.all.collect {|menu_item| [menu_item.menu_items, menu_item.id] },
                     { prompt: "Select a menu Item"} %>
   </div>
 
-  <div>
+  <div class="px-4 py-2">
     <%= form.label :quantity, "Quantity"%>
-    <%= form.number_field :quantity, in:1..50%>
+    <%= form.number_field :quantity, in:1..50, class: "border" ,placeholder: "Enter menu item name"%>
   </div>
 
   <div class="inline">

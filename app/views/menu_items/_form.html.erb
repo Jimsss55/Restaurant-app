@@ -13,14 +13,14 @@
 
   <div>
     <strong><%= form.label :menu_items, "Menu Item"%></strong>
-    <%= form.text_field :menu_items,
+    <%= form.text_field :menu_items, placeholder: "Enter menu item name",
                         class: "mt-1 block px-3 py-1 bg-white border border-slate-300 rounded-md text-sm
                         shadow-sm focus:outline-none focus:border-red-100 focus:ring-1 focus:ring-sky-500" %>
   </div>
 
   <div>
     <strong><%= form.label :menu_item_price, "Price"%></strong>
-    <%= form.number_field :menu_item_price, in: 1.0..1000.0,
+    <%= form.number_field :menu_item_price, in: 1.0..1000.0, placeholder: "Enter price",
                           class: "mt-1 block px-3 py-1 bg-white border border-slate-300 rounded-md text-sm shadow-sm
                           focus:outline-none focus:border-red-100 focus:ring-1 focus:ring-sky-500" %>
   </div>

@@ -45,9 +45,7 @@
           </tr>
           <% end %>
           <tr>
-            <td class="border border-gray-300 px-4 py-2"><strong>Grand Total</strong></td>
-            <td></td>
-            <td></td>
+            <td colspan="3" class="border border-gray-300 px-4 py-2"><strong>Grand Total</strong></td>
             <td colspan="2" class="border border-gray-300 px-4 py-2">Nu.
               <%= controller_name == "payment_details" ? @total_payment : @grand_total %>
             </td>
