@@ -5,5 +5,5 @@
 
   <%= link_to (@source.present? ? "Back to Payment Details" : "Back to order items"),
               (@source.present? ? new_customer_payment_detail_path(@customer, {source: @source}) : customer_path(@customer)),
-              class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+              class: "ml-2 rounded-lg py-3 px-5 bg-gray-300 inline-block font-medium" %>
 </div>

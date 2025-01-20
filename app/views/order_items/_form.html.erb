@@ -16,15 +16,20 @@
   <% end %>
 
   <div class="px-4 py-2">
-    <%= form.label :menu_item_id, "Menu Items "%>
+    <%= form.label :menu_item_id, "Menu Items: ", class: "font-bold"%>
     <%= form.select :menu_item_id,
                     MenuItem.all.collect {|menu_item| [menu_item.menu_items, menu_item.id] },
-                    { prompt: "Select a menu Item"} %>
+                    { prompt: "Select a menu Item"}, class: "mt-2 md:w-2/3 bg-gray-100 px-3 py-4 border border-gray-300 text-gray-700
+                                text-md shadow-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500
+                                focus:border-sky-500 transition duration-200"%>
   </div>
 
   <div class="px-4 py-2">
-    <%= form.label :quantity, "Quantity"%>
-    <%= form.number_field :quantity, in:1..50, class: "border" ,placeholder: "Enter menu item name"%>
+    <%= form.label :quantity, "Quantity: ", class: "font-bold"%>
+    <%= form.number_field :quantity, in:1..50, placeholder: "Enter menu item name",
+                          class: "mt-2 md:w-2/3 bg-gray-100 px-3 py-4 border border-gray-300 text-gray-700
+                                text-md shadow-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500
+                                focus:border-sky-500 transition duration-200"%>
   </div>
 
   <div class="inline">

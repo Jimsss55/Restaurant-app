@@ -1,7 +1,9 @@
 <div class="mx-auto md:w-2/3 w-full flex">
   <div class="mx-auto">
 
-    <p>Customer Table Number: <%= @customer_table.customer_table_number %></p>
+    <div class="flex justify-center mt-5">
+      <p class="font-bold">Customer Table Number: <%= @customer_table.customer_table_number %></p>
+    </div>
 
     <%= link_to "Edit this customer table", edit_customer_table_path(@customer_table),
                 class: "mt-2 rounded-lg py-3 px-5 bg-green-300 inline-block font-medium" %>

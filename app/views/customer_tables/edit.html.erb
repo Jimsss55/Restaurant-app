@@ -3,8 +3,8 @@
 
   <%= render "form", customer_table: @customer_table %>
 
-  <%= link_to "Back to customer tables", customer_tables_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100
+  <%= link_to "Back to customer tables", customer_tables_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-300
   inline-block font-medium" %>
   <%= button_to "Delete", @customer_table, method: :delete, data: {turbo_confirm: "Are you sure?"}, class: "ml-2 rounded-lg
-  py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  mt-3 py-3 px-5 bg-red-100 inline-block font-medium" %>
 </div>
