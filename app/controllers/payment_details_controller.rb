@@ -4,15 +4,20 @@ class PaymentDetailsController < ApplicationController
 
   def new
     @payment_detail = PaymentDetail.new
+
     @order_items = @customer.order_items.includes(:menu_item)
     @total_payment = @order_items.sum("menu_item_price * quantity")
+
     @source = "payment_detail"
     @payment = params[:payment]
   end
 
   def create
     @payment_detail = @customer.build_payment_detail(payment_detail_params)
-    @payment_detail.payment_amt = @total_payment
+    @order_items = @customer.order_items.includes(:menu_item)
+    total_payment = @order_items.sum("menu_item_price * quantity")
+
+    @payment_detail.payment_amt = total_payment.to_f
 
     if params[:payment_detail][:journal_number].present?
       @customer.payment_method = params[:payment_detail][:journal_number].to_s
@@ -27,6 +32,10 @@ class PaymentDetailsController < ApplicationController
       flash[:notice] = "Payment detail was successfully created and emailed to the customer"
       redirect_to customers_path
     else
+      @order_items = @customer.order_items.includes(:menu_item)
+      @total_payment = @order_items.sum("menu_item_price * quantity")
+      @payment_detail.payment_amt = @total_payment
+
       render :new, status: :unprocessable_entity
     end
   end

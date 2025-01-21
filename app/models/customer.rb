@@ -5,8 +5,10 @@ class Customer < ApplicationRecord
   has_many :menu_items, through: :order_items
   has_one :payment_detail, dependent: :destroy
 
-  validates :customer_name, presence: true
+  attr_accessor :customer_table_id
+  validates :customer_table_id, presence: true
 
+  validates :customer_name, presence: true
   def self.search_by_name(query)
     if query.present?
       where("customer_name LIKE ?", "%#{query}%")

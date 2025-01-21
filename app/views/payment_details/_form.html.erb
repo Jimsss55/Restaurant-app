@@ -23,7 +23,7 @@
                                 focus:border-sky-500 transition duration-200"%>
   </div>
 
-  <div class="mt-2 mb-5<%if @payment.present?%> block <% else %> hidden <%end%>">
+  <div class="mt-2 mb-5<%if @payment.present? || payment_detail.errors.any? %> block : <% else %> hidden <%end%>">
     <%= form.label :journal_number, "Journal Number: ", class: "px-5 py-3 font-bold"%>
     <%= form.text_field :journal_number, placeholder: "Enter Journal Number",
                          class: "mt-2 md:w-2/3 bg-gray-100 px-3 py-4 border border-gray-300 text-gray-700

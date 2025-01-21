@@ -79,6 +79,7 @@
 <!--    Popup for payment method-->
     <% unless controller_name == 'payment_details' %>
       <% unless @customer.payment_status == "Payment Done"%>
+        <% unless @grand_total == 0 %>
         <div data-controller="popup" class="flex justify-center inline-block ml-2">
           <button data-action="click->popup#openPopup" class="mt-2 rounded-lg py-3 px-5 bg-red-100 font-medium">Checkout this customer</button>
           <%= render "shared/popup", controller_name: "popup" do%>
@@ -89,6 +90,7 @@
               <%= link_to "Cash", new_customer_payment_detail_path(@customer),
                           class: "mt-2 ml-2 rounded-lg py-3 px-5 bg-gray-300 inline-block font-medium" %>
             </div>
+            <%end %>
           <% end %>
           <%#= link_to "Checkout this customer", new_customer_payment_detail_path(@customer, @payment_detail), class: "mt-2 rounded-lg py-3 px-5 bg-red-100 font-medium" %>
         </div>
