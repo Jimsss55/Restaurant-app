@@ -31,23 +31,35 @@
           <th>Customer Table Number</th>
           <th>Status</th>
           <th>Total Payment</th>
-          <th>Payment Method</th>
+          <th>Payment (Cash/jrn)</th>
           <th>Action</th>
         </tr>
         </thead>
 
         <tbody>
         <% @customers.each do |customer| %>
-         <% total=customer.order_items.includes(:menu_item).sum("menu_item_price * quantity") %>
+          <% total=customer.order_items.includes(:menu_item).sum("menu_item_price * quantity") %>
           <tr>
             <td class="border border-gray-300 px-4 py-2"><%= customer.customer_name %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= customer.customer_table.customer_table_number %></td>
+
+            <%if customer.customer_tables.any? %>
+              <td class="border border-gray-300 px-4 py-2">
+                <%= customer.customer_tables.map(&:customer_table_number).join(',') %>
+              </td>
+            <% elsif customer.customer_table.present? %>
+              <td class="border border-gray-300 px-4 py-2"><%= customer.customer_table.customer_table_number %></td>
+            <%else %>
+                <td class="border border-gray-300 px-4 py-2">No customer table</td>
+            <%end %>
+
             <td class="border border-gray-300 px-4 py-2 <%= customer.payment_status == 'Payment Done' ? 'text-green-500' : 'text-red-500' %>">
               <%= customer.payment_status || "Payment Pending" %>
             </td>
             <td class="border border-gray-300 px-4 py-2"><strong>Nu.<%= total %></strong></td>
             <% if customer.payment_status == "Payment Done"%>
-              <td class="border border-gray-300 px-4 py-2"> <%= customer.payment_method == 'MBoB' ? "Journal No" : "Cash" %></td>
+              <td class="border border-gray-300 px-4 py-2">
+                <%= customer.payment_method == 'Cash' ? "Cash" : customer.payment_method || "Online Payment"%>
+              </td>
             <%else %>
               <td class="border border-gray-300 px-4 py-2"></td>
             <% end %>
@@ -73,8 +85,21 @@
         <%= link_to "Back to Customer", customers_path,
                     class: "mt-2 ml-2 rounded-lg py-3 px-5 bg-gray-300 hover:bg-green-200 inline-block font-medium"%>
       <%end %>
-      <%= link_to "Add Customer", new_customer_path,
-                  class: "mt-2 ml-2 rounded-lg py-3 px-5 bg-green-300 hover:bg-green-200 inline-block font-medium" %>
+
+<!--      PopUp for add customer tables-->
+      <div data-controller="popup">
+        <button data-action="click->popup#openPopup" class="mt-2 ml-2 rounded-lg py-3 px-5 bg-green-300
+                                                     hover:bg-green-200 inline-block font-medium">Add customer</button>
+        <%= render "shared/popup", controller_name: "popup" do%>
+          <h1 class="flex justify-center font-bold ">Do you want to Join customer table ?</h1>
+          <div class="flex justify-center">
+            <%= link_to "Yes", new_customer_path(source: "Join_Tables"), class: "mt-2 ml-2 rounded-lg py-3 px-5 bg-green-300 hover:bg-green-200 inline-block font-medium" %>
+            <%= link_to "No", new_customer_path, class: "mt-2 ml-2 rounded-lg py-3 px-5 bg-red-100 inline-block font-medium" %>
+          </div>
+        <% end %>
+      </div>
+
+      <%#= link_to "Add Customer", new_customer_path, class: "mt-2 ml-2 rounded-lg py-3 px-5 bg-green-300 hover:bg-green-200 inline-block font-medium" %>
     </div>
 
   </div>

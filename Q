@@ -1,0 +1,9 @@
+ => 
+[32m#<Customer:0x0000756f440d9890[0m
+ id: [34m[1m22[0m,
+ customer_table_id: [34m[1m9[0m,
+ customer_name: [31m[1m"[0m[31mTshewang[0m[31m[1m"[0m,
+ created_at: [31m[1m"[0m[31m2025-01-17 06:24:05.301760000 +0000[0m[31m[1m"[0m,
+ updated_at: [31m[1m"[0m[31m2025-01-17 11:34:58.185880000 +0000[0m[31m[1m"[0m,
+ payment_status: [31m[1m"[0m[31mPayment Done[0m[31m[1m"[0m,
+ payment_method: [36m[1mnil[0m[32m>[0m 

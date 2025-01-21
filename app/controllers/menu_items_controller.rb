@@ -1,4 +1,3 @@
-require 'pry'
 class MenuItemsController < ApplicationController
   before_action :authenticate_user!, except: [ :index ]
   before_action :set_menu_item, only: %i[ show edit update destroy]

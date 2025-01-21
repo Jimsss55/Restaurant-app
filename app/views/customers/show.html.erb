@@ -7,10 +7,20 @@
       <%= @customer.customer_name %>
     </p>
 
+    <% if @customer.customer_tables.any? %>
     <p>
       <strong>Customer Table Number: </strong>
-      <%= @customer.customer_table.customer_table_number %>
+      <strong><%= @customer.customer_tables.map(&:customer_table_number).join(',') %></strong>
     </p>
+      <%elsif @customer.customer_table.present?%>
+      <p>
+        <strong>Customer Table Number: </strong>
+        <%= @customer.customer_table.customer_table_number %>
+      </p>
+      <%else %>
+    <P>No Customer table</P>
+    <% end %>
+
 
     <h1 class="mt-5 flex justify-center font-bold text-2xl">Order Items</h1>
 
@@ -60,15 +70,30 @@
         inline-block font-medium" %>
       <%end %>
 
-      <%= link_to "Back to customers", customers_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-300
+      <%= link_to (@payment.present? ? "Back to customer payment" : "Back to Customers"),
+                  (@payment.present? ? new_customer_payment_detail_path(@customer) : customers_path), class: "ml-2 rounded-lg py-3 px-5 bg-gray-300
         inline-block font-medium" %>
     </div>
 
+
+<!--    Popup for payment method-->
     <% unless controller_name == 'payment_details' %>
       <% unless @customer.payment_status == "Payment Done"%>
-        <div class="flex justify-center inline-block ml-2">
-          <%= link_to "Checkout this customer", new_customer_payment_detail_path(@customer, @payment_detail), class: "mt-2 rounded-lg py-3 px-5 bg-red-100 font-medium" %>
+        <div data-controller="popup" class="flex justify-center inline-block ml-2">
+          <button data-action="click->popup#openPopup" class="mt-2 rounded-lg py-3 px-5 bg-red-100 font-medium">Checkout this customer</button>
+          <%= render "shared/popup", controller_name: "popup" do%>
+            <h1 class="flex justify-center font-bold ">What is the Customer Payment Method ?</h1>
+            <div class="flex justify-center">
+              <%= link_to "Online Payment", new_customer_payment_detail_path(@customer, payment: "online_payment"),
+                          class: "mt-2 ml-2 rounded-lg py-3 px-5 bg-green-300 hover:bg-green-200 inline-block font-medium" %>
+              <%= link_to "Cash", new_customer_payment_detail_path(@customer),
+                          class: "mt-2 ml-2 rounded-lg py-3 px-5 bg-gray-300 inline-block font-medium" %>
+            </div>
+          <% end %>
+          <%#= link_to "Checkout this customer", new_customer_payment_detail_path(@customer, @payment_detail), class: "mt-2 rounded-lg py-3 px-5 bg-red-100 font-medium" %>
         </div>
+
+
         <%end %>
     <% end %>
   </div>

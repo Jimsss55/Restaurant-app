@@ -36,3 +36,62 @@
     color: black; }
 .apple_pagination a:hover, .apple_pagination a:focus {
     text-decoration: underline; }
+
+/*Popup*/
+.my-popup {
+    visibility: hidden;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+.my-popup.active {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease, visibility 0s linear;
+}
+
+.my-popup-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: black;
+    opacity: 0.3;
+    z-index: 9999;
+}
+
+.my-popup-content {
+    position: absolute;
+    z-index: 99999;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 100px;
+    width: 500px;
+    background: white;
+    padding: 10px;
+}
+
+.my-popup-close-btn-wrapper {
+    display: flex;
+    justify-content: end;
+}
+
+.my-popup-close-btn {
+    background: #e6e6e6;
+    border: 0px;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.my-popup-close-btn:hover {
+    cursor: pointer;
+    background: #dbdbdb;
+}
