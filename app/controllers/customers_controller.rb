@@ -7,10 +7,17 @@ class CustomersController < ApplicationController
     date_query = params[:date_query]
     name_query = params[:name_query]
 
-    if date_query.present?
-      @customers = Customer.order(created_at: :desc).search_by_date(params[:date_query]).paginate(page: params[:page], per_page: 4)
+    if name_query.present? && date_query.present?
+      @customers = Customer.order(created_at: :desc)
+                          .search_by_name(params[:name_query])
+                          .search_by_date(params[:date_query])
+                          .paginate(page: params[:page], per_page: 4)
+    elsif date_query.present?
+      @customers = Customer.order(created_at: :desc).search_by_date(params[:date_query])
+                           .paginate(page: params[:page], per_page: 4)
     elsif name_query.present?
-      @customers = Customer.order(created_at: :desc).search_by_name(params[:name_query]).paginate(page: params[:page], per_page: 4)
+      @customers = Customer.order(created_at: :desc).search_by_name(params[:name_query])
+                           .paginate(page: params[:page], per_page: 4)
     else
       @customers = Customer.order(created_at: :desc).paginate(page: params[:page], per_page: 4)
     end
