@@ -4,7 +4,16 @@ class CustomersController < ApplicationController
   before_action :get_source, only: [ :new, :create ]
 
   def index
-    @customers = Customer.order(created_at: :desc).search_by_name(params[:query]).paginate(page: params[:page], per_page: 4)
+    date_query = params[:date_query]
+    name_query = params[:name_query]
+
+    if date_query.present?
+      @customers = Customer.order(created_at: :desc).search_by_date(params[:date_query]).paginate(page: params[:page], per_page: 4)
+    elsif name_query.present?
+      @customers = Customer.order(created_at: :desc).search_by_name(params[:name_query]).paginate(page: params[:page], per_page: 4)
+    else
+      @customers = Customer.order(created_at: :desc).paginate(page: params[:page], per_page: 4)
+    end
   end
 
   def show

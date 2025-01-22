@@ -36,6 +36,8 @@ class PaymentDetailsController < ApplicationController
       @total_payment = @order_items.sum("menu_item_price * quantity")
       @payment_detail.payment_amt = @total_payment
 
+      # binding.pry
+
       render :new, status: :unprocessable_entity
     end
   end
@@ -50,7 +52,7 @@ class PaymentDetailsController < ApplicationController
     end
 
     def payment_detail_params
-      params.require(:payment_detail).permit(:email)
+      params.require(:payment_detail).permit(:email, :journal_number)
     end
     def online_payment
       params[:commit] == "Online Payment"

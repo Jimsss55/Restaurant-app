@@ -9,9 +9,17 @@ class Customer < ApplicationRecord
   validates :customer_table_id, presence: true
 
   validates :customer_name, presence: true
-  def self.search_by_name(query)
-    if query.present?
-      where("customer_name LIKE ?", "%#{query}%")
+  def self.search_by_name(name_query)
+    if name_query.present?
+      where("customer_name LIKE ?", "%#{name_query}%")
+    else
+      all
+    end
+  end
+
+  def self.search_by_date(date_query)
+    if date_query.present?
+      where("DATE(created_at) = ?", date_query)
     else
       all
     end
