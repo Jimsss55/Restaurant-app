@@ -4,10 +4,7 @@ class Customer < ApplicationRecord
   has_many :order_items, dependent: :destroy
   has_many :menu_items, through: :order_items
   has_one :payment_detail, dependent: :destroy
-
-  attr_accessor :customer_table_id
-  validates :customer_table_id, presence: true
-
+  
   validates :customer_name, presence: true
   def self.search_by_name(name_query)
     if name_query.present?
@@ -19,7 +16,7 @@ class Customer < ApplicationRecord
 
   def self.search_by_date(date_query)
     if date_query.present?
-      where("DATE(created_at) = ?", date_query)
+      where("DATE(customers.created_at) = ?", date_query)
     else
       all
     end

@@ -1,5 +1,5 @@
 <div class="mx-auto w-full flex">
-  <div class="mx-auto">
+  <div class="mx-auto h-lvh">
     <div>
       <%= render 'layouts/navigation' %>
     </div>
@@ -37,53 +37,57 @@
         <%= will_paginate @menu_items, :container => false %>
       </div>
 
-      <table class="mt-3 table-auto px-5 bg-white border border-gray-300">
-        <thead class="bg-pink-500 text-white ">
-        <tr>
-          <th>Customer Name</th>
-          <th>Customer Table Number</th>
-          <th> Status</th>
-          <th>Total Payment</th>
-          <th>Payment (Cash/jrn)</th>
-          <th>Action</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <% @customers.each do |customer| %>
-          <% total=customer.order_items.includes(:menu_item).sum("menu_item_price * quantity") %>
+      <%#= turbo_frame_tag "customers" do %>
+        <table class="mt-3 table-auto px-5 bg-white border border-gray-300">
+          <thead class="bg-pink-500 text-white customers_thead">
           <tr>
-            <td class="border border-gray-300 px-4 py-2"><%= customer.customer_name %></td>
-
-            <%if customer.customer_tables.any? %>
-              <td class="border border-gray-300 px-4 py-2">
-                <%= customer.customer_tables.map(&:customer_table_number).join(',') %>
-              </td>
-            <% elsif customer.customer_table.present? %>
-              <td class="border border-gray-300 px-4 py-2"><%= customer.customer_table.customer_table_number %></td>
-            <%else %>
-                <td class="border border-gray-300 px-4 py-2">No customer table</td>
-            <%end %>
-
-            <td class="border border-gray-300 px-4 py-2 <%= customer.payment_status == 'Payment Done' ? 'text-green-500' : 'text-red-500' %>">
-              <%= customer.payment_status || "Payment Pending" %>
-            </td>
-            <td class="border border-gray-300 px-4 py-2"><strong>Nu.<%= total %></strong></td>
-            <% if customer.payment_status == "Payment Done"%>
-              <td class="border border-gray-300 px-4 py-2">
-                <%= customer.payment_method == 'Cash' ? "Cash" : customer.payment_method || "Online Payment"%>
-              </td>
-            <%else %>
-              <td class="border border-gray-300 px-4 py-2"></td>
-            <% end %>
-            <td class="border border-gray-300 px-4 py-2"><%= link_to "Show this Customer",customer,
-                                                                     class: "mt-1 ml-1 rounded-lg py-3 px-5 bg-gray-200
-                                                                     hover:bg-gray-100 inline-block font-medium" %>
-            </td>
+            <%= sortable_table_header "Customer Name", :customer_name , :customers_path %>
+  <!--          <th>Customer Name</th>-->
+            <th>Customer Table Number</th>
+            <th> Status</th>
+            <%= sortable_table_header "Total Payment", :payment_amt, :customers_path%>
+<!--            <th>Total Payment</th>-->
+            <th>Payment (Cash/jrn)</th>
+            <th>Action</th>
           </tr>
-        <% end %>
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+          <% @customers.each do |customer| %>
+            <% total=customer.order_items.includes(:menu_item).sum("menu_item_price * quantity") %>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2"><%= customer.customer_name %></td>
+
+              <%if customer.customer_tables.any? %>
+                <td class="border border-gray-300 px-4 py-2">
+                  <%= customer.customer_tables.map(&:customer_table_number).join(',') %>
+                </td>
+              <% elsif customer.customer_table.present? %>
+                <td class="border border-gray-300 px-4 py-2"><%= customer.customer_table.customer_table_number %></td>
+              <%else %>
+                  <td class="border border-gray-300 px-4 py-2">No customer table</td>
+              <%end %>
+
+              <td class="border border-gray-300 px-4 py-2 <%= customer.payment_status == 'Payment Done' ? 'text-green-500' : 'text-red-500' %>">
+                <%= customer.payment_status || "Payment Pending" %>
+              </td>
+              <td class="border border-gray-300 px-4 py-2"><strong>Nu.<%= total %></strong></td>
+              <% if customer.payment_status == "Payment Done"%>
+                <td class="border border-gray-300 px-4 py-2">
+                  <%= customer.payment_method == 'Cash' ? "Cash" : customer.payment_method || "Online Payment"%>
+                </td>
+              <%else %>
+                <td class="border border-gray-300 px-4 py-2"></td>
+              <% end %>
+              <td class="border border-gray-300 px-4 py-2"><%= link_to "Show this Customer", customer,
+                                                                       class: "mt-1 ml-1 rounded-lg py-3 px-5 bg-gray-200
+                                                                       hover:bg-gray-100 inline-block font-medium" %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+        <%#end %>
 
     <div class="apple_pagination">
       <%= will_paginate @menu_items, :container => false %>

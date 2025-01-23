@@ -16,27 +16,22 @@ class PaymentDetailsController < ApplicationController
     @payment_detail = @customer.build_payment_detail(payment_detail_params)
     @order_items = @customer.order_items.includes(:menu_item)
     total_payment = @order_items.sum("menu_item_price * quantity")
-
     @payment_detail.payment_amt = total_payment.to_f
 
-    if params[:payment_detail][:journal_number].present?
-      @customer.payment_method = params[:payment_detail][:journal_number].to_s
-    else
-      @customer.payment_method = "Cash"
-    end
-
     if @payment_detail.save
-      PaymentMailer.payment_detail_email(@customer, @payment_detail).deliver_now
-      @customer.update(payment_status: "Payment Done")
-      @customer.update(payment_method: params[:payment_detail][:journal_number])
-      flash[:notice] = "Payment detail was successfully created and emailed to the customer"
-      redirect_to customers_path
+      @customer.update(payment_status: "Payment Done", payment_method: params[:payment_detail][:journal_number].presence || "Cash")
+      if @customer.payment_status == "Payment Done"
+        flash[:notice] = "Payment detail wasq successfully created and emailed to the customer"
+        PaymentMailer.payment_detail_email(@customer, @payment_detail).deliver_now
+        redirect_to customers_path
+      else
+        flash[:alert] = "Payment detail could not be created"
+        redirect_to customers_path
+      end
     else
       @order_items = @customer.order_items.includes(:menu_item)
       @total_payment = @order_items.sum("menu_item_price * quantity")
       @payment_detail.payment_amt = @total_payment
-
-      # binding.pry
 
       render :new, status: :unprocessable_entity
     end

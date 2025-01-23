@@ -1,12 +1,13 @@
 module ApplicationHelper
+
   def sortable_table_header(title, column, path_method, **)
-    content_tag(:th, class: "customers_th") do
+    content_tag(:th, class: "customers_thead") do
       sortable_column(title, column, path_method, **)
     end
   end
 
   def sortable_column(title, column, path_method, **)
-    direction = (column.to_s == params[:sort].to_s && params[:direction]=="asc") ? "dsc" : "asc"
+    direction = (column.to_s == params[:sort].to_s && params[:direction]=="asc") ? "desc" : "asc"
 
     query_params = request.query_parameters.merge(sort: column, direction: direction)
 
