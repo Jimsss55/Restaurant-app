@@ -34,7 +34,7 @@
 
     <% if @customers.present? %>
       <div class="apple_pagination">
-        <%= will_paginate @menu_items, :container => false %>
+        <%= will_paginate @customers, :container => false %>
       </div>
 
       <%#= turbo_frame_tag "customers" do %>
@@ -77,7 +77,7 @@
               <!--Payment Method-->
               <% if customer.payment_status == "Payment Done"%>
                 <td class="border border-gray-300 px-4 py-2">
-                  <%= customer.payment_method == 'Cash' ? "Cash" : customer.payment_detail.journal_number || "No Journal Number"%>
+                  <%= customer.payment_method == "cash" ? "Cash" : customer.payment_detail.journal_number%>
                 </td>
               <%else %>
                 <td class="border border-gray-300 px-4 py-2"></td>
@@ -95,7 +95,7 @@
         <%#end %>
 
     <div class="apple_pagination">
-      <%= will_paginate @menu_items, :container => false %>
+      <%= will_paginate @customers, :container => false %>
     </div>
 
     <% else %>
@@ -103,8 +103,10 @@
         <p class="flex justify-center text-red-500 font-bold">No Customer Name: <%= params[:name_query] %> found on Date: <%= params[:date_query] %></p>
       <%elsif params[:date_query] %>
         <p class="flex justify-center text-red-500 font-bold">No Customer on Date: <%= params[:date_query] %> found</p>
-      <%else %>
+      <%elsif params[:name_query] %>
         <p class="flex justify-center text-red-500 font-bold">No Customer Name: <%= params[:name_query] %> found</p>
+      <%else %>
+        <p class="flex justify-center text-red-500 font-bold">No Customer Data found</p>
       <% end %>
     <%end %>
 

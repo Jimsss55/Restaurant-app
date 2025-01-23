@@ -20,13 +20,13 @@ class PaymentDetailsController < ApplicationController
     @payment_detail.payment_amt = total_payment.to_f
 
     if @payment_detail.save
-      @customer.update(payment_status: "Payment Done", payment_method: params[:payment_detail][:journal_number].presence || "Cash")
+      @customer.update(payment_status: "Payment Done", payment_method: params[:payment_detail][:journal_number].present? ? "online_payment" : "cash")
 
       (params[:payment_detail][:journal_number].presence) ?
-        @customer.update(payment_method: "Online Payment") :
-        @customer.update(payment_method: "Cash")
+        @customer.update(payment_method: "online_payment") :
+        @customer.update(payment_method: "cash")
 
-      (@customer.payment_method == "Online Payment") ?
+      (@customer.payment_method == "online_payment") ?
         @payment_detail.update(journal_number: @payment_detail.journal_number) :
         @payment_detail.update(journal_number: "Cash Payment Done")
 
