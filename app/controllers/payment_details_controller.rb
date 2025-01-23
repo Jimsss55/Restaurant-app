@@ -10,6 +10,7 @@ class PaymentDetailsController < ApplicationController
 
     @source = "payment_detail"
     @payment = params[:payment]
+
   end
 
   def create
@@ -20,8 +21,18 @@ class PaymentDetailsController < ApplicationController
 
     if @payment_detail.save
       @customer.update(payment_status: "Payment Done", payment_method: params[:payment_detail][:journal_number].presence || "Cash")
+
+      (params[:payment_detail][:journal_number].presence) ?
+        @customer.update(payment_method: "Online Payment") :
+        @customer.update(payment_method: "Cash")
+
+      (@customer.payment_method == "Online Payment") ?
+        @payment_detail.update(journal_number: @payment_detail.journal_number) :
+        @payment_detail.update(journal_number: "Cash Payment Done")
+
+
       if @customer.payment_status == "Payment Done"
-        flash[:notice] = "Payment detail wasq successfully created and emailed to the customer"
+        flash[:notice] = "Payment detail was successfully created and emailed to the customer"
         PaymentMailer.payment_detail_email(@customer, @payment_detail).deliver_now
         redirect_to customers_path
       else

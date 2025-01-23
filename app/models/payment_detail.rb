@@ -3,6 +3,6 @@ class PaymentDetail < ApplicationRecord
   validates :email, presence: true,
             format: { with: /\b[A-Z0-9._%a-z\-]+@(?:[A-Z0-9a-z\-]+\.)+[A-Za-z]{2,4}\z/ }
 
-  attr_accessor :journal_number
+  validates :journal_number, uniqueness: true, if: -> { journal_number.present? }
 
 end

@@ -42,11 +42,9 @@
           <thead class="bg-pink-500 text-white customers_thead">
           <tr>
             <%= sortable_table_header "Customer Name", :customer_name , :customers_path %>
-  <!--          <th>Customer Name</th>-->
             <th>Customer Table Number</th>
             <th> Status</th>
             <%= sortable_table_header "Total Payment", :payment_amt, :customers_path%>
-<!--            <th>Total Payment</th>-->
             <th>Payment (Cash/jrn)</th>
             <th>Action</th>
           </tr>
@@ -58,6 +56,7 @@
             <tr>
               <td class="border border-gray-300 px-4 py-2"><%= customer.customer_name %></td>
 
+              <!--Customer table-->
               <%if customer.customer_tables.any? %>
                 <td class="border border-gray-300 px-4 py-2">
                   <%= customer.customer_tables.map(&:customer_table_number).join(',') %>
@@ -68,17 +67,23 @@
                   <td class="border border-gray-300 px-4 py-2">No customer table</td>
               <%end %>
 
+              <!--Payment Status-->
               <td class="border border-gray-300 px-4 py-2 <%= customer.payment_status == 'Payment Done' ? 'text-green-500' : 'text-red-500' %>">
                 <%= customer.payment_status || "Payment Pending" %>
               </td>
+
               <td class="border border-gray-300 px-4 py-2"><strong>Nu.<%= total %></strong></td>
+
+              <!--Payment Method-->
               <% if customer.payment_status == "Payment Done"%>
                 <td class="border border-gray-300 px-4 py-2">
-                  <%= customer.payment_method == 'Cash' ? "Cash" : customer.payment_method || "Online Payment"%>
+                  <%= customer.payment_method == 'Cash' ? "Cash" : customer.payment_detail.journal_number || "No Journal Number"%>
                 </td>
               <%else %>
                 <td class="border border-gray-300 px-4 py-2"></td>
               <% end %>
+
+
               <td class="border border-gray-300 px-4 py-2"><%= link_to "Show this Customer", customer,
                                                                        class: "mt-1 ml-1 rounded-lg py-3 px-5 bg-gray-200
                                                                        hover:bg-gray-100 inline-block font-medium" %>

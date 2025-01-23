@@ -9,7 +9,6 @@ class CustomersController < ApplicationController
     date_query = params[:date_query]
     name_query = params[:name_query]
 
-    # sort_column = params[:sort] || "customer_name" || "payment_amt"
     def sort_column
       params[:sort] if SORTABLE_COLUMNS.include?(params[:sort])
     end

@@ -4,7 +4,7 @@ class Customer < ApplicationRecord
   has_many :order_items, dependent: :destroy
   has_many :menu_items, through: :order_items
   has_one :payment_detail, dependent: :destroy
-  
+
   validates :customer_name, presence: true
   def self.search_by_name(name_query)
     if name_query.present?
