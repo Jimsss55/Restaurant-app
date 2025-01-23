@@ -16,6 +16,9 @@ class OrderItemsController < ApplicationController
     @order_item=@customer.order_items.new(order_item_params)
 
     if @order_item.save
+      @total_payment = @customer.order_items.includes(:menu_item).sum("menu_item_price * quantity")
+      @customer.update(payment_amt: @total_payment.to_f)
+
       # check request
       if @source == "payment_detail"
         flash[:notice] = "Order item was successfully created for payment"
@@ -34,6 +37,9 @@ class OrderItemsController < ApplicationController
 
   def update
     if @order_item.update(order_item_params)
+      @total_payment = @customer.order_items.includes(:menu_item).sum("menu_item_price * quantity")
+      @customer.update(payment_amt: @total_payment.to_f)
+
       if @source == "payment_detail"
         flash[:notice] = "Payment Order item was successfully updated"
         redirect_to new_customer_payment_detail_path(@customer.id)
@@ -49,6 +55,9 @@ class OrderItemsController < ApplicationController
   def destroy
     @order_item = @customer.order_items.find(params[:id])
     if @order_item.destroy!
+      @total_payment = @customer.order_items.includes(:menu_item).sum("menu_item_price * quantity")
+      @customer.update(payment_amt: @total_payment.to_f)
+
       if @source == "payment_detail"
         flash[:notice] = "Order item was successfully destroyed from payment"
         redirect_to new_customer_payment_detail_path(@customer)

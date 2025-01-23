@@ -15,9 +15,6 @@ class PaymentDetailsController < ApplicationController
 
   def create
     @payment_detail = @customer.build_payment_detail(payment_detail_params)
-    @order_items = @customer.order_items.includes(:menu_item)
-    total_payment = @order_items.sum("menu_item_price * quantity")
-    @payment_detail.payment_amt = total_payment.to_f
 
     if @payment_detail.save
       @customer.update(payment_status: "Payment Done", payment_method: params[:payment_detail][:journal_number].present? ? "online_payment" : "cash")
@@ -42,7 +39,7 @@ class PaymentDetailsController < ApplicationController
     else
       @order_items = @customer.order_items.includes(:menu_item)
       @total_payment = @order_items.sum("menu_item_price * quantity")
-      @payment_detail.payment_amt = @total_payment
+      @customer.payment_amt = @total_payment
 
       render :new, status: :unprocessable_entity
     end

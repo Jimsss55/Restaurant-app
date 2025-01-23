@@ -16,20 +16,20 @@ class CustomersController < ApplicationController
     sort_direction = params[:direction].presence_in(%w[asc desc])
 
     if name_query.present? && date_query.present?
-      @customers = Customer.left_joins(:payment_detail).order(Arel.sql("#{sort_column} #{sort_direction}"))
+      @customers = Customer.order(Arel.sql("#{sort_column} #{sort_direction}"))
                           .search_by_name(params[:name_query])
                           .search_by_date(params[:date_query])
                           .paginate(page: params[:page], per_page: 4)
     elsif date_query.present?
-      @customers = Customer.left_joins(:payment_detail).order(Arel.sql("#{sort_column} #{sort_direction}"))
+      @customers = Customer.order(Arel.sql("#{sort_column} #{sort_direction}"))
                            .search_by_date(params[:date_query])
                            .paginate(page: params[:page], per_page: 4)
     elsif name_query.present?
-      @customers = Customer.left_joins(:payment_detail).order(Arel.sql("#{sort_column} #{sort_direction}"))
+      @customers = Customer.order(Arel.sql("#{sort_column} #{sort_direction}"))
                            .search_by_name(params[:name_query])
                            .paginate(page: params[:page], per_page: 4)
     else
-      @customers = Customer.left_joins(:payment_detail).order(Arel.sql("#{sort_column} #{sort_direction}")).paginate(page: params[:page], per_page: 4)
+      @customers = Customer.order(Arel.sql("#{sort_column} #{sort_direction}")).paginate(page: params[:page], per_page: 4)
     end
   end
   def show
@@ -47,6 +47,7 @@ class CustomersController < ApplicationController
   # POST /customers or /customers.json
   def create
     @customer = Customer.new(customer_params)
+    @customer.payment_amt = 0.0
 
     if params[:customer][:customer_table_ids].present?
       table_ids = params[:customer][:customer_table_ids].reject(&:blank?)
