@@ -33,19 +33,19 @@
     </div>
 
     <% if @customers.present? %>
-      <div class="apple_pagination">
-        <%= will_paginate @customers, :container => false %>
-      </div>
+<!--      <div class="apple_pagination">-->
+        <%#= will_paginate @customers, :container => false %>
+<!--      </div>-->
 
       <%#= turbo_frame_tag "customers" do %>
         <table class="mt-3 table-auto px-5 bg-white border border-gray-300">
           <thead class="bg-pink-500 text-white customers_thead">
           <tr>
-            <%= sortable_table_header "Customer Name", :customer_name , :customers_path %>
-            <th>Customer Table Number</th>
+            <%= sortable_table_header "Customer Name", :customer_name , :customers_path, class: "px-2"%>
+            <th class="px-4">Customer Table Number</th>
             <th> Status</th>
-            <%= sortable_table_header "Total Payment", :payment_amt, :customers_path%>
-            <th>Payment (Cash/jrn)</th>
+            <%= sortable_table_header "Total Payment", :payment_amt, :customers_path, class: "px-4"%>
+            <th class="px-4">Payment (Cash/jrn)</th>
             <th>Action</th>
           </tr>
           </thead>
@@ -54,12 +54,12 @@
           <% @customers.each do |customer| %>
             <% total=customer.order_items.includes(:menu_item).sum("menu_item_price * quantity") %>
             <tr>
-              <td class="border border-gray-300 px-4 py-2"><%= customer.customer_name %></td>
+              <td class="border border-gray-300 px-4 py-2 "><%= customer.customer_name %></td>
 
               <!--Customer table-->
               <%if customer.customer_tables.any? %>
-                <td class="border border-gray-300 px-4 py-2">
-                  <%= customer.customer_tables.map(&:customer_table_number).join(',') %>
+                <td class="px-4 py-2 border border-gray-300 ">
+                  <%= customer.customer_tables.map(&:customer_table_number).join(',')%>
                 </td>
               <% elsif customer.customer_table.present? %>
                 <td class="border border-gray-300 px-4 py-2"><%= customer.customer_table.customer_table_number %></td>

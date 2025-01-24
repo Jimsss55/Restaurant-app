@@ -5,32 +5,35 @@
     <%= render 'layouts/navigation' %>
   </div>
 
-  <div class="flex justify-center items-center">
+  <div class="flex justify-center items-center mt-5">
     <h1 class="font-bold text-4xl">Menu items</h1>
   </div>
 
-  <div class="apple_pagination">
-    <%= will_paginate @menu_items, :container => false %>
-  </div>
+  <table class="mt-3 table-auto px-5 bg-white border border-gray-300 mx-auto">
+    <thead class="bg-pink-500 text-white customers_thead">
+    <tr>
+      <th> Item </th>
+      <th> Price (Nu) </th>
+      <th> Action </th>
+    </tr>
+    </thead>
 
-  <div class="mt-2 grid grid-cols-3 mx-8">
-    <h1 class="font-bold text-2xl">Item</h1>
-    <h2 class="font-bold text-2xl">Price (Nu)</h2>
-  </div>
-
-  <div id="menu_items" class="w-full">
+    <tbody>
     <% @menu_items.each do |menu_item| %>
-      <div class="grid grid-cols-3 mx-8">
-        <h3><%= menu_item.menu_items %></h3>
-        <h3><%= menu_item.menu_item_price %></h3>
-        <p>
-          <%= link_to "Show this menu item", menu_item, class: "mt-1 ml-2 rounded-lg py-3 px-5 bg-green-100 inline-block font-medium" %>
-        </p>
-      </div>
-    <% end %>
-  </div>
+      <tr>
+        <td class="border border-gray-300 px-4 py-2 "><%= menu_item.menu_items %></td>
+        <td class="border border-gray-300 px-4 py-2 "><%= menu_item.menu_item_price %></td>
 
-  <div class="apple_pagination">
+        <td class="border border-gray-300 px-4 py-2"><%= link_to "Show this Menu item", menu_item,
+                                                                 class: "mt-1 ml-1 rounded-lg py-3 px-5 bg-gray-200
+                                                                       hover:bg-gray-100 inline-block font-medium" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <div class="apple_pagination mt-3">
     <%= will_paginate @menu_items, :container => false %>
   </div>
 
