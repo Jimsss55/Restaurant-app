@@ -34,11 +34,13 @@
     <%= will_paginate @customer_tables, :container => false %>
   </div>
 
-  <div class="mt-2 flex inline-block items-center justify-center">
-    <p>
-      <%= link_to "Add Customer table", new_customer_table_path, class: "ml-2 rounded-lg py-3 px-5 bg-green-300
-      inline-block font-medium"  %>
-    </p>
-  </div>
+  <%= turbo_frame_tag "new_customer_table", target: "_top" do %>
+    <div class="mt-2 flex inline-block items-center justify-center">
+      <p>
+        <%= link_to "Add Customer table", new_customer_table_path, data: { turbo_frame: "new_customer_table" },
+                    class: "ml-2 rounded-lg py-3 px-5 bg-green-300 inline-block font-medium"  %>
+      </p>
+    </div>
+  <%end %>
 </div>
 

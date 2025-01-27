@@ -1,3 +1,10 @@
+<%#=turbo_frame_tag dom_id(menu_item), class: "flex-1 flex justify-between items-center" %>
 <div id="<%= dom_id menu_item %>">
+  <div class="mx-auto">
 
+    <div class="flex justify-center mt-5 inline-block">
+      <p class="px-4"><strong><%= @menu_item.menu_items%></strong></p>
+      <p><strong> Nu. <%= @menu_item.menu_item_price %></strong></p>
+    </div>
+  </div>
 </div>

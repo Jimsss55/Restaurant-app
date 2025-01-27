@@ -65,16 +65,20 @@
     <%end %>
 
     <div class="mt-5 flex justify-center">
-      <% unless @customer.payment_status == "Payment Done" %>
-        <%= link_to "Add Order Items", new_customer_order_item_path(@customer, {source: @source}), class: "ml-2 rounded-lg py-3 px-5 bg-green-300
-        inline-block font-medium" %>
+      <%=turbo_frame_tag "new_order_item", target: "_top" do%>
+        <% unless @customer.payment_status == "Payment Done" %>
+            <%= link_to "Add Order Items", new_customer_order_item_path(@customer, {source: @source}),
+                        data: { turbo_frame: "new_order_item"},
+                        class: "ml-2 rounded-lg py-3 px-5 bg-green-300 inline-block font-medium" %>
+        <%end %>
       <%end %>
 
-      <%= link_to (@source.present? ? "Back to Customer Detail" : "Back to Customers"),
+      <div class="flex items-center">
+        <%= link_to (@source.present? ? "Back to Customer Detail" : "Back to Customers"),
                   (@source.present? ? customer_path(@customer) : customers_path),
                   class: "ml-2 rounded-lg py-3 px-5 bg-gray-300 inline-block font-medium" %>
+      </div>
     </div>
-
 
 <!--    Popup for payment method-->
     <% unless controller_name == 'payment_details' %>

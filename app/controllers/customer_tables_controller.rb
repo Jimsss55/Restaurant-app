@@ -26,7 +26,7 @@ class CustomerTablesController < ApplicationController
 
     if @customer_table.save
       flash[:notice] = "Customer table was successfully created."
-      redirect_to @customer_table
+      redirect_to customer_tables_path
     else
       render :new, status: :unprocessable_entity
     end
