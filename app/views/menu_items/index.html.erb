@@ -5,10 +5,6 @@
     <%= render 'layouts/navigation' %>
   </div>
 
-<!--  <div>-->
-    <%#= render 'layouts/flash' %>
-<!--  </div>-->
-
   <div class="mx-auto flex justify-center mt-3">
 
   <%= turbo_frame_tag "menu_items_page" do %>
@@ -20,7 +16,7 @@
       <div class="container mt-3 px-5 bg-white border-gray-300 rounded-lg shadow-sm max-w-2xl mx-auto">
 
         <!--Table header-->
-        <div class="grid grid-cols-3 text-white bg-pink-500 px-4 py-2 rounded-t-lg">
+        <div class="grid grid-cols-3 text-white bg-pink-500 py-2 rounded-t-lg">
           <div class="font-bold flex justify-center">Item</div>
           <div class="font-bold flex justify-center">Price (Nu)</div>
         </div>
@@ -28,7 +24,7 @@
         <!--Table Body-->
         <% @menu_items.each do |menu_item| %>
           <%= turbo_frame_tag menu_item do %>
-            <div class="grid grid-cols-3 border-b border-gray-300 px-5 py-2">
+            <div class="grid grid-cols-3 border-b border-gray-300">
               <div class="border border-gray-300 px-4 py-2 flex justify-center"><%= menu_item.menu_items %></div>
               <div class="border border-gray-300 px-4 py-2 flex justify-center"><%= menu_item.menu_item_price %></div>
               <div class="border border-gray-300 px-4 py-2 flex justify-center">
@@ -41,24 +37,25 @@
 
                 <%= button_to menu_item, method: :delete, data: { turbo_confirm: "Are you sure?" } do %>
                   <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
-                  </svg>
-                <%end %>
-              </div>
+                  <path stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                </svg>
+              <%end %>
             </div>
-          <%end %>
+      </div>
         <%end %>
-      </div>
+        <%end %>
+    </div>
 
-      <div class="apple_pagination mt-3">
-        <%= will_paginate @menu_items, :container => false %>
-      </div>
+    <div class="apple_pagination mt-3">
+      <%= will_paginate @menu_items, :container => false %>
+    </div>
+
 
       <div class="flex justify-center">
         <%= link_to "Add new Menu Item", new_menu_item_path,
                     data: { turbo_frame: "new_menu_item" },
                     class: "mt-3 ml-2 rounded-lg py-3 px-5 bg-green-300 inline-block font-medium"%>
       </div>
-    <%end %>
+        <%end %>
   </div>
 </div>
