@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resources :menu_items, except: [ :show ]
+  resources :menu_items
 
   resources :customer_tables
 

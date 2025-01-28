@@ -3,8 +3,7 @@
 
   <%=turbo_frame_tag "customer_table" do %>
     <%= render "form", customer_table: @customer_table%>
+    <%= link_to "Cancel", customer_tables_path,
+                class: "ml-2 rounded-lg py-3 px-5 bg-gray-300 inline-block font-medium" %>
   <%end %>
-
-  <%= link_to "Back to customer tables", customer_tables_path,
-              class: "ml-2 rounded-lg py-3 px-5 bg-gray-300 inline-block font-medium" %>
 </div>

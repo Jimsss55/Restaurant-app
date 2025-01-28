@@ -7,17 +7,12 @@ class CustomerTablesController < ApplicationController
     @customer_tables = CustomerTable.paginate(page: params[:page], per_page: 3)
   end
 
-  # GET /customer_tables/1 or /customer_tables/1.json
   def show
   end
 
   # GET /customer_tables/new
   def new
     @customer_table = CustomerTable.new
-  end
-
-  # GET /customer_tables/1/edit
-  def edit
   end
 
   # POST /customer_tables or /customer_tables.json
@@ -30,6 +25,11 @@ class CustomerTablesController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+
+  # GET /customer_tables/1/edit
+  def edit
   end
 
   # PATCH/PUT /customer_tables/1 or /customer_tables/1.json
@@ -46,8 +46,16 @@ class CustomerTablesController < ApplicationController
   # DELETE /customer_tables/1 or /customer_tables/1.json
   def destroy
     @customer_table.destroy!
-    flash[:notice] = "Customer table was successfully deleted"
-    redirect_to customer_tables_path
+
+    respond_to do |format|
+      format.html do
+        flash[:notice] = "Customer table was successfully deleted"
+        redirect_to customer_tables_path
+      end
+      format.turbo_stream
+    end
+    # flash[:notice] = "Customer table was successfully deleted"
+    # redirect_to customer_tables_path
   end
 
   private

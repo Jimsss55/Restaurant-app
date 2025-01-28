@@ -1,10 +1,9 @@
 <div class="mx-auto md:w-2/3 w-full">
   <h1 class="font-bold text-4xl">Editing customer table</h1>
 
-  <%= render "form", customer_table: @customer_table %>
-
-  <%= link_to "Back to customer tables", customer_tables_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-300
-  inline-block font-medium" %>
-  <%= button_to "Delete", @customer_table, method: :delete, data: {turbo_confirm: "Are you sure?"}, class: "ml-2 rounded-lg
-  mt-3 py-3 px-5 bg-red-100 inline-block font-medium" %>
+  <%= turbo_frame_tag @customer_table do %>
+    <%= render "form", customer_table: @customer_table %>
+    <%= link_to "Back to customer tables", customer_tables_path,
+                class: "ml-2 mb-5 rounded-lg py-3 px-5 bg-gray-300 inline-block font-medium" %>
+  <% end %>
 </div>

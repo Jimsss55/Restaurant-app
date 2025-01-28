@@ -1,10 +1,14 @@
 class MenuItemsController < ApplicationController
   before_action :authenticate_user!, except: [ :index ]
-  before_action :set_menu_item, only: %i[ edit update destroy]
+  before_action :set_menu_item, only: %i[ show edit update destroy]
 
   # GET /menu_items or /menu_items.json
   def index
     @menu_items = MenuItem.paginate(page: params[:page], per_page: 5)
+  end
+
+  def show
+
   end
 
   # GET /menu_items/new
