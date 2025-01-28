@@ -33,6 +33,10 @@ class OrderItemsController < ApplicationController
   end
 
   def edit
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def update
@@ -40,13 +44,27 @@ class OrderItemsController < ApplicationController
       @total_payment = @customer.order_items.includes(:menu_item).sum("menu_item_price * quantity")
       @customer.update(payment_amt: @total_payment.to_f)
 
-      if @source == "payment_detail"
-        flash[:notice] = "Payment Order item was successfully updated"
-        redirect_to new_customer_payment_detail_path(@customer.id)
-      else
-        flash[:notice] = "Order item was successfully updated"
-        redirect_to customer_path(@order_item.customer_id)
+      respond_to do |format|
+        format.turbo_stream
+        if @source == "payment_detail"
+          format.html{
+            redirect_to new_customer_payment_detail_path(@customer.id), notice: "Payment Order item was successfully updated"
+          }
+          # flash[:notice] = "Payment Order item was successfully updated"
+          # redirect_to new_customer_payment_detail_path(@customer.id)
+        else
+          flash[:notice] = "Order item was successfully updated"
+          redirect_to customer_path(@order_item.customer_id)
+        end
+
       end
+      # if @source == "payment_detail"
+      #   flash[:notice] = "Payment Order item was successfully updated"
+      #   redirect_to new_customer_payment_detail_path(@customer.id)
+      # else
+      #   flash[:notice] = "Order item was successfully updated"
+      #   redirect_to customer_path(@order_item.customer_id)
+      # end
     else
       render :edit, status: :unprocessable_entity
     end

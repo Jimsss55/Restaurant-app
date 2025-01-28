@@ -1,9 +1,8 @@
 <div class="mx-auto md:w-2/3 w-full">
   <h1 class="font-bold text-4xl">New menu item</h1>
 
-  <%= turbo_frame_tag @menu_item do %>
+  <%= turbo_frame_tag "menu_items_page" do %>
     <%= render "form", menu_item: @menu_item %>
+    <%= link_to "Back to menu items", menu_items_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-300 inline-block font-medium" %>
   <% end %>
-
-  <%= link_to "Back to menu items", menu_items_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-300 inline-block font-medium" %>
 </div>
