@@ -11,15 +11,21 @@
     </div>
   <% end %>
 
-  <div>
-    <strong><%= form.label :customer_table_number, "Customer Table Number: ", required: true%></strong>
-    <%= form.number_field :customer_table_number, in: 1..50, required: true,
-                          class: "mt-2 px-4 py-2 bg-gray-100 border border-gray-300 text-gray-700
-                          rounded-lg text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500
-                          focus:border-sky-500 transition duration-200" %>
-  </div>
+  <div class="mt-2 mb-2 block max-w-sm p-6 bg-white border border-gray-200 rounded-lg drop-shadow-lg shadow-sm
+                hover:bg-blue-300 dark:hover:bg-lime-100">
+    <div>
+      <strong><%= form.label :customer_table_number, "Customer Table Number: ", required: true%></strong>
+      <%= form.number_field :customer_table_number, in: 1..50, required: true,
+                            class: "mt-2 px-4 py-2 bg-gray-100 border border-gray-300 text-gray-700
+                            rounded-lg text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500
+                            focus:border-sky-500 transition duration-200" %>
+    </div>
 
-  <div class="inline">
-    <%= form.submit  data: { turbo_frame: "_top" }, class: "mt-2 mb-1 rounded-lg py-3 px-3 bg-blue-600 text-white font-small cursor-pointer" %>
+    <div class="inline">
+      <%= form.submit class: "mt-2 mb-1 rounded-lg py-3 px-3 bg-blue-600 text-white font-small cursor-pointer" %>
+      <%= link_to "Cancel", customer_tables_path,
+                  class: "ml-2 rounded-lg py-3 px-5 bg-gray-300 inline-block font-medium" %>
+    </div>
+
   </div>
 <% end %>

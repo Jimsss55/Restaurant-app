@@ -3,7 +3,5 @@
 
   <%= turbo_frame_tag @customer_table do %>
     <%= render "form", customer_table: @customer_table %>
-    <%= link_to "Cancel", customer_tables_path, data: { turbo_frame: "_top" },
-        class: "ml-2 mb-2  rounded-lg py-3 px-5 bg-gray-300 inline-block font-medium" %>
   <% end %>
 </div>
