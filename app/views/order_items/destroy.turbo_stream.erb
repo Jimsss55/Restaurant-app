@@ -1,0 +1,12 @@
+<%= turbo_stream.remove dom_id(@order_item) %>
+
+<turbo-stream action="update" target="grand_total">
+  <template>
+    <%= turbo_frame_tag "grand_total" do %>
+      <div class="flex justify-center bg-pink-500 rounded-b-lg border border-gray-300 px-4 py-2">
+        <div class="px-4 py-2"><strong>Grand Total</strong></div>
+        <div class="font-bold px-4 py-2">Nu. <%= @total_payment %></div>
+      </div>
+    <% end %>
+  </template>
+</turbo-stream>

@@ -1,11 +1,7 @@
 <div class="mx-auto md:w-2/3 w-full">
   <h1 class="font-bold text-4xl">New order item</h1>
 
-  <%= turbo_frame_tag @order_item do %>
+  <%= turbo_frame_tag "order_items_page" do %>
     <%= render "form", order_item: @order_item, customer: @customer %>
   <%end %>
-
-  <%= link_to (@source.present? ? "Back to Payment Details" : "Back to order items"),
-              (@source.present? ? new_customer_payment_detail_path(@customer, {source: @source}) : customer_path(@customer)),
-              class: "ml-2 rounded-lg py-3 px-5 bg-gray-300 inline-block font-medium" %>
 </div>

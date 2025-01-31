@@ -1,10 +1,10 @@
 <%= form_with(model: [customer, order_item],
               url: order_item.new_record? ? customer_order_items_path(@customer, {source: @source})
                      : customer_order_item_path(@customer, @order_item, source: @source),
-              class: "contents", local: true) do |form| %>
+              class: "contents my-3", local: true) do |form| %>
 
   <% if order_item.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg my-3">
       <h2><%= pluralize(order_item.errors.count, "error") %> prohibited this order_item from being saved:</h2>
 
       <ul>
@@ -15,24 +15,36 @@
     </div>
   <% end %>
 
-  <div class="px-4 py-2">
-    <%= form.label :menu_item_id, "Menu Items: ", class: "font-bold"%>
-    <%= form.select :menu_item_id,
-                    MenuItem.all.collect {|menu_item| [menu_item.menu_items, menu_item.id] },
-                    { prompt: "Select a menu Item"}, class: "mt-2 bg-gray-100 px-3 py-4 border border-gray-300 text-gray-700
-                                text-md shadow-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500
-                                focus:border-sky-500 transition duration-200", required: true%>
-  </div>
+  <div class="mt-2 mb-2 max-w-sm p-6 bg-white border border-gray-200 rounded-lg drop-shadow-lg shadow-sm
+                hover:bg-blue-300 dark:hover:bg-lime-100">
+    <div >
+      <%= form.label :menu_item_id, "Menu Items: ", class: "font-bold"%>
+      <%= form.select :menu_item_id,
+                      MenuItem.all.collect {|menu_item| [menu_item.menu_items, menu_item.id] },
+                      { prompt: "Select a menu Item"}, class: "bg-gray-100 px-3 py-1 border border-gray-300 text-gray-700
+                                  text-md shadow-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500
+                                  focus:border-sky-500 transition duration-200", required: true%>
+    </div>
 
-  <div class="px-4 py-2">
-    <%= form.label :quantity, "Quantity: ", class: "font-bold"%>
-    <%= form.number_field :quantity, in:1..50, placeholder: "Quantity", required: true,
-                          class: "mt-2 md:w-2/3 bg-gray-100 px-3 py-4 border border-gray-300 text-gray-700
-                                text-md shadow-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500
-                                focus:border-sky-500 transition duration-200"%>
-  </div>
+    <div class="px-4 py-2">
+      <%= form.label :quantity, "Quantity: ", class: "font-bold"%>
+      <%= form.number_field :quantity, in:1..50, placeholder: "Quantity", required: true,
+                            class: "mt-2 md:w-2/3 bg-gray-100 px-3 py-1 border border-gray-300 text-gray-700
+                                  text-md shadow-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500
+                                  focus:border-sky-500 transition duration-200"%>
+    </div>
 
   <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit class: "rounded-lg py-2 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <%if controller_name == "customers"%>
+      <%= link_to "Cancel",
+                  (@source.present? ? new_customer_payment_detail_path(@customer, {source: @source}) : customer_path(@order_item.customer_id)),
+                  class: "ml-2 rounded-lg py-3 px-5 bg-red-100 inline font-medium" %>
+    <%else %>
+      <%= link_to "Cancel",
+                  (@source.present? ? new_customer_payment_detail_path(@customer, {source: @source}) : customer_path(@customer)),
+                  class: "ml-2 rounded-lg py-3 px-5 bg-red-100 inline-block font-medium" %>
+    <% end %>
+  </div>
   </div>
 <% end %>
