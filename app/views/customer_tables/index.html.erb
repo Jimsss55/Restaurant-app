@@ -5,44 +5,39 @@
     <%= render 'layouts/navigation' %>
   </div>
 
-  <div class="mx-auto flex justify-center mt-3">
+  <div class="flex justify-center mt-3">
     <%= turbo_frame_tag "customer_table" do %>
 
       <div class="flex justify-center items-center mt-5">
-        <h1 class="font-bold text-4xl">Customer Tables</h1>
+        <h1 class="font-bold text-3xl">Customer Tables</h1>
       </div>
 
-      <div class="container mt-3 px-5 bg-white border-gray-300 rounded-lg shadow-sm max-w-2xl mx-auto">
+      <div class="container mt-3 px-5 bg-white border-gray-300 rounded-lg shadow-sm">
 
         <!--Table Header-->
-        <div class="grid grid-cols-3 text-white bg-pink-500 px-4 py-2 rounded-t-lg">
+        <div class="grid grid-cols-2 px-5 text-white bg-pink-500 px-4 py-2 rounded-t-lg">
           <div class="font-bold flex justify-center">Table Number</div>
-<!--          <div class="flex justify-center items-center">-->
-              <%#= link_to "Add Customer table", new_customer_table_path, data: { turbo_frame: "new_customer_table" }, class: "ml-2 rounded-lg py-2 px-3 bg-blue-600 font-small"  %>
-<!--          </div>-->
-
         </div>
 
         <!--Table body-->
         <% @customer_tables.each do |table| %>
           <%= turbo_frame_tag table do %>
-            <div class="grid grid-cols-3 border-b border-gray-300">
-              <div class="border border-gray-300 px-4 py-3 flex justify-center"><%=table.customer_table_number %></div>
-              <div class="border border-gray-300 px-4 py-3 flex justify-center">
+            <div class="grid grid-cols-2 border-b border-gray-300">
+              <div class="border border-gray-300 py-3 flex justify-center"><%=table.customer_table_number %></div>
+              <div class="border border-gray-300 py-3 flex justify-center">
 
                 <%= link_to edit_customer_table_path(table) do %>
                   <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="green" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
                   </svg>
                 <%end %>
-              </div>
 
-              <div class="border border-gray-300 px-4 py-3 flex justify-center">
                 <%= button_to table, method: :delete, data: { turbo_confirm: "Are you sure?" } do %>
                   <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
                   </svg>
                 <%end %>
+
               </div>
             </div>
           <%end %>
@@ -54,7 +49,8 @@
       </div>
 
       <div class="mt-2 flex inline-block items-center justify-center">
-        <%= link_to "Add Customer table", new_customer_table_path, data: { turbo_frame: "new_customer_table" },
+        <%= link_to "Add Customer table", new_customer_table_path,
+                    data: { turbo_frame: "new_customer_table" },
                     class: "ml-2 rounded-lg py-3 px-5 bg-green-300 inline-block font-medium"  %>
       </div>
     <%end %>
