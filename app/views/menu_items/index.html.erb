@@ -5,13 +5,14 @@
     <%= render 'layouts/navigation' %>
   </div>
 
-  <div class="mx-auto flex justify-center mt-3">
+  <div class=" flex justify-center mt-3">
     <%= turbo_frame_tag "menu_items_page" do %>
+
       <div class="flex justify-center items-center mt-5">
         <h1 class="font-bold text-4xl">Menu items</h1>
       </div>
 
-      <div class="container mt-3 px-5 bg-white border-gray-300 rounded-lg shadow-sm max-w-2xl mx-auto">
+      <div class="container mt-3 px-5 bg-white border-gray-300 rounded-lg shadow-sm">
 
         <!--Table header-->
         <div class="grid grid-cols-3 text-white bg-pink-500 py-2 rounded-t-lg">
@@ -35,25 +36,24 @@
 
                 <%= button_to menu_item, method: :delete, data: { turbo_confirm: "Are you sure?" } do %>
                   <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
-                </svg>
-              <%end %>
+                    <path stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                  </svg>
+                <%end %>
+              </div>
             </div>
+          <%end %>
+        <%end %>
       </div>
-        <%end %>
-        <%end %>
-    </div>
 
-    <div class="apple_pagination mt-3">
-      <%= will_paginate @menu_items, :container => false %>
-    </div>
-
+      <div class="apple_pagination mt-3">
+        <%= will_paginate @menu_items, :container => false %>
+      </div>
 
       <div class="flex justify-center">
         <%= link_to "Add new Menu Item", new_menu_item_path,
                     data: { turbo_frame: "new_menu_item" },
                     class: "mt-3 ml-2 rounded-lg py-3 px-5 bg-green-300 inline-block font-medium"%>
       </div>
-        <%end %>
+    <%end %>
   </div>
 </div>

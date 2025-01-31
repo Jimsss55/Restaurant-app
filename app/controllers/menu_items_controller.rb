@@ -8,7 +8,6 @@ class MenuItemsController < ApplicationController
   end
 
   def show
-
   end
 
   # GET /menu_items/new
@@ -49,7 +48,7 @@ class MenuItemsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        flash[:notice] = "Menu item was successfully deleted."
+        flash.now[:notice] = "Menu item was successfully deleted."
         redirect_to menu_items_path
       end
       format.turbo_stream
