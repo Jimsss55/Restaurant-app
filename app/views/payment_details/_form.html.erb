@@ -1,4 +1,5 @@
-<%= form_with(model: [customer, payment_detail], class: "contents", local: true) do |form| %>
+
+<%= form_with(model: [customer, payment_detail], class: "contents", local: true, data: { turbo: false }) do |form| %>
   <% if payment_detail.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(payment_detail.errors.count, "error") %> prohibited this payment_detail from being saved:</h2>
@@ -10,23 +11,18 @@
     </div>
   <% end %>
 
-  <div class="px-5 py-3">
-    <%= form.label :payment_amt, "Payment Amount: " , class: "font-bold px-5 py-3"%>
-    <strong>Nu. <%= @total_payment %></strong>
-  </div>
-
   <div class="px-5 py-1">
-    <%= form.label :email, "Email: ", required: true, class: "px-5 py-3 font-bold"%>
+    <%= form.label :email, "Email: ", required: true, class: "px-5 font-bold"%>
     <%= form.email_field :email, placeholder: "Enter email of customer", required: true,
-                         class: "mt-2 md:w-2/3 bg-gray-100 px-3 py-4 border border-gray-300 text-gray-700
+                         class: "mt-2 md:w-2/3 bg-gray-100 px-3 py-1 border border-gray-300 text-gray-700
                                 text-md shadow-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500
                                 focus:border-sky-500 transition duration-200"%>
   </div>
 
   <div <% if @payment.present? || (@payment_detail.present? && @payment_detail.errors.any?)%>>
-      <%= form.label :journal_number, "Journal Number: ", required: true, class: "px-5 py-3 font-bold"%>
+      <%= form.label :journal_number, "Journal Number: ", required: true, class: "px-5 font-bold"%>
       <%= form.text_field :journal_number, placeholder: "Enter Journal Number", required: true,
-                           class: "mt-2 md:w-2/3 bg-gray-100 px-3 py-4 border border-gray-300 text-gray-700
+                           class: "mt-2 mb-2 md:w-2/3 bg-gray-100 px-3 py-1 border border-gray-300 text-gray-700
                                   text-md shadow-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500
                                   focus:border-sky-500 transition duration-200"%>
   </div <%end %>>
@@ -35,8 +31,13 @@
     <%= render :template => "customers/show" %>
   </div>
 
-  <div class="flex justify-center px-4 py-3">
-    <%= form.submit "Done Payment", id:"payment_done", name: "commit",
+  <div class="flex justify-center px-3 mb-2 ">
+    <%= form.submit "Done Payment",  id:"payment_done", name: "commit",
                     class: "ml-2 rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+
+    <% if controller_name == "payment_details" %>
+      <%= link_to "Back to Customer Details", customer_path(@customer),
+                  class: "ml-2 rounded-lg py-3 px-5 bg-gray-300 inline-block font-medium" %>
+    <% end %>
   </div>
 <% end %>
