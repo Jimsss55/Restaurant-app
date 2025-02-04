@@ -22,8 +22,8 @@
     </div>
 
     <div class="inline">
-      <%= form.submit class: "mt-2 mb-1 rounded-lg py-3 px-3 bg-blue-600 text-white font-small cursor-pointer" %>
-      <%= link_to "Cancel", customer_tables_path,
+      <%= form.submit data: { turbo_frame: "_top" }, class: "mt-2 mb-1 rounded-lg py-3 px-3 bg-blue-600 text-white font-small cursor-pointer" %>
+      <%= link_to "Cancel", customer_tables_path, data: { turbo_frame: "_top" },
                   class: "ml-2 rounded-lg py-3 px-5 bg-gray-300 inline-block font-medium" %>
     </div>
 
