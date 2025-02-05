@@ -29,7 +29,18 @@ class CustomersController < ApplicationController
                            .search_by_name(params[:name_query])
                            .paginate(page: params[:page], per_page: 4)
     else
-      @customers = Customer.order(Arel.sql("#{sort_column} #{sort_direction}")).paginate(page: params[:page], per_page: 4)
+      if params[:name_query].nil? && params[:date_query].nil?
+        @customers = Customer.order(created_at: :desc).paginate(page: params[:page], per_page: 4)
+
+        respond_to do |format|
+          format.html
+          format.json {
+            render json: @customers.to_json(include: [ :order_items, :payment_detail ])
+          }
+        end
+      else
+        @customers = Customer.order(Arel.sql("#{sort_column} #{sort_direction}")).paginate(page: params[:page], per_page: 4)
+      end
     end
   end
   def show

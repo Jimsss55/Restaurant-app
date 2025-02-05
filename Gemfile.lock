@@ -374,6 +374,7 @@ GEM
     tailwindcss-ruby (3.4.17-arm64-darwin)
     tailwindcss-ruby (3.4.17-x86_64-darwin)
     tailwindcss-ruby (3.4.17-x86_64-linux)
+    test-prof (1.4.4)
     thor (1.3.2)
     thruster (0.1.9)
     thruster (0.1.9-aarch64-linux)
@@ -445,6 +446,7 @@ DEPENDENCIES
   sqlite3 (>= 2.1)
   stimulus-rails
   tailwindcss-rails (~> 3.1)
+  test-prof (~> 1.0)
   thruster
   turbo-rails
   tzinfo-data

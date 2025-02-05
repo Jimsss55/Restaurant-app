@@ -1,6 +1,11 @@
 <%= render "layouts/navigation" %>
 
 <div class="mx-auto md:w-2/3 w-full">
+  <div>
+    <%= render :template => "customers/show" %>
+  </div>
+
   <h1 class="flex justify-center font-bold text-2xl">Payment Details</h1>
   <%= render "form", payment_detail: @payment_detail, customer: @customer%>
+
 </div>

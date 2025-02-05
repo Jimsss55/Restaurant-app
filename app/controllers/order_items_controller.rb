@@ -1,14 +1,15 @@
-require "pry"
-
 class OrderItemsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_customer, only: [ :new, :create, :update,  :edit, :destroy ]
+  before_action :set_customer, only: [ :new, :create, :update,  :edit, :destroy, :show ]
   before_action :set_order_item, only: %i[ update edit ]
   before_action :get_params, only: %i[ new create edit update destroy ]
 
   # GET /order_items/new
   def new
     @order_item = OrderItem.new
+  end
+
+  def show
   end
 
   # POST /order_items or /order_items.json
@@ -19,14 +20,9 @@ class OrderItemsController < ApplicationController
       @total_payment = @customer.order_items.includes(:menu_item).sum("menu_item_price * quantity")
       @customer.update(payment_amt: @total_payment.to_f)
 
-      # check request
-      if @source == "payment_detail"
-        flash[:notice] = "Order item was successfully created for payment"
-        redirect_to new_customer_payment_detail_path(@customer)
-      else
-        flash[:notice] = "Order item was successfully created"
-        redirect_to customer_path(@customer)
-      end
+      flash.now[:notice] = "Order item was successfully created"
+      redirect_to new_customer_payment_detail_path(@customer)
+
     else
       render :new, status: :unprocessable_entity
     end
@@ -41,30 +37,28 @@ class OrderItemsController < ApplicationController
 
   def update
     if @order_item.update(order_item_params)
-      @total_payment = @customer.order_items.includes(:menu_item).sum("menu_item_price * quantity")
-      @customer.update(payment_amt: @total_payment.to_f)
 
-      respond_to do |format|
-        format.turbo_stream
+
+        @total_payment = @customer.order_items.includes(:menu_item).sum("menu_item_price * quantity")
+        @customer.update(payment_amt: @total_payment.to_f)
+
         if @source == "payment_detail"
-          format.html{
-            redirect_to new_customer_payment_detail_path(@customer.id), notice: "Payment Order item was successfully updated"
-          }
-          # flash[:notice] = "Payment Order item was successfully updated"
-          # redirect_to new_customer_payment_detail_path(@customer.id)
+          # respond_to do |format|
+          #   format.html do
+              flash.now[:notice] = "Payment Order item was successfully updated"
+              redirect_to new_customer_payment_detail_path(@customer.id)
+            # end
+            # format.turbo_stream
+          # end
         else
-          flash[:notice] = "Order item was successfully updated"
-          redirect_to customer_path(@order_item.customer_id)
+          # respond_to do |format|
+          #   format.html do
+              flash.now[:notice] = "Order item was successfully updated"
+              redirect_to customer_path(@order_item.customer_id)
+            # end
+            # format.turbo_stream
+          # end
         end
-
-      end
-      # if @source == "payment_detail"
-      #   flash[:notice] = "Payment Order item was successfully updated"
-      #   redirect_to new_customer_payment_detail_path(@customer.id)
-      # else
-      #   flash[:notice] = "Order item was successfully updated"
-      #   redirect_to customer_path(@order_item.customer_id)
-      # end
     else
       render :edit, status: :unprocessable_entity
     end
@@ -77,11 +71,21 @@ class OrderItemsController < ApplicationController
       @customer.update(payment_amt: @total_payment.to_f)
 
       if @source == "payment_detail"
-        flash[:notice] = "Order item was successfully destroyed from payment"
-        redirect_to new_customer_payment_detail_path(@customer)
+        respond_to do |format|
+          format.html do
+            flash[:notice] = "Order item was successfully destroyed from payment"
+            redirect_to new_customer_payment_detail_path(@customer)
+          end
+          format.turbo_stream
+        end
       else
-        flash[:notice] = "Order item was successfully destroyed"
-        redirect_to customer_path(@order_item.customer_id)
+        respond_to do |format|
+          format.html do
+            flash[:notice] = "Order item was successfully destroyed"
+            redirect_to customer_path(@order_item.customer_id)
+          end
+          format.turbo_stream
+        end
       end
     end
   end

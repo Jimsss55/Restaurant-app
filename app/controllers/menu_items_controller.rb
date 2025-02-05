@@ -4,7 +4,16 @@ class MenuItemsController < ApplicationController
 
   # GET /menu_items or /menu_items.json
   def index
-    @menu_items = MenuItem.paginate(page: params[:page], per_page: 5)
+    list_menu_items = ::ListMenuItems.new(params)
+    @menu_items = list_menu_items.fetch_menu_items
+
+    respond_to do |format|
+      format.html { }
+
+      format.json {
+        render json: @menu_items
+      }
+    end
   end
 
   def show

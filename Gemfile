@@ -65,6 +65,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem 'factory_bot_rails'
+  gem "test-prof", "~> 1.0"
 end
 
 gem "devise", "~> 4.9"

@@ -35,7 +35,7 @@
     </div>
 
   <div class="inline">
-    <%= form.submit class: "rounded-lg py-2 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit data: { turbo_frame: "_top" }, class: "rounded-lg py-2 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
     <%if controller_name == "customers"%>
       <%= link_to "Cancel",
                   (@source.present? ? new_customer_payment_detail_path(@customer, {source: @source}) : customer_path(@order_item.customer_id)),

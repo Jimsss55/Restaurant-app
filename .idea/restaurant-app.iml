@@ -149,6 +149,7 @@
     <orderEntry type="library" scope="PROVIDED" name="stringio (v3.1.2, RVM: ruby-3.3.6 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tailwindcss-rails (v3.1.0, RVM: ruby-3.3.6 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tailwindcss-ruby (v3.4.17, RVM: ruby-3.3.6 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="test-prof (v1.4.4, RVM: ruby-3.3.6 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thor (v1.3.2, RVM: ruby-3.3.6 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thruster (v0.1.9, RVM: ruby-3.3.6 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="timeout (v0.4.3, RVM: ruby-3.3.6 [global]) [gem]" level="application" />

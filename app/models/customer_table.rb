@@ -4,4 +4,11 @@ class CustomerTable < ApplicationRecord
 
   validates :customer_table_number, uniqueness: true, presence: true, numericality: {
     greater_than_or_equal_to: 1 }
+
+  def soft_delete
+    update(deleted_at: Time.current)
+  end
+
+  default_scope { where(deleted_at: nil) }
+
 end

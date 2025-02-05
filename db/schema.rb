@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_23_105912) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_03_064737) do
   create_table "customer_tables", force: :cascade do |t|
     t.integer "customer_table_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
   end
 
   create_table "customer_tables_customers", id: false, force: :cascade do |t|
