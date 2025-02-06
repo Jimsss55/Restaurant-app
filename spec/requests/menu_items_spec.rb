@@ -9,8 +9,7 @@ RSpec.describe MenuItemsController, type: :request do
   before { login_request(user) }
 
   describe "GET /index" do
-
-    it 'Sends a GET request and display all the Menu Items in JSON Format' do
+    it "Sends a GET request and display all the Menu Items in JSON Format" do
       get '/menu_items.json'
       expect(response).to have_http_status(:success)
       json_response = JSON.parse(response.body)
@@ -20,9 +19,9 @@ RSpec.describe MenuItemsController, type: :request do
       expect(response_menu_names).to contain_exactly(menu_item_1.menu_items, menu_item_2.menu_items, menu_item_3.menu_items)
     end
 
-    context 'with menu item search' do
+    context "with menu item search" do
       it "Retrieve the name of the searched menu items" do
-        get "/menu_items.json?menu_name_query=#{menu_item_1.menu_items[0..3]}"
+        get '/menu_items.json?menu_name_query=#{menu_item_1.menu_items[0..3]}'
         expect(response).to have_http_status(:success)
         json_response = JSON.parse(response.body)
         response_id = json_response.pluck("id")
@@ -40,7 +39,7 @@ RSpec.describe MenuItemsController, type: :request do
   # end
 
   describe "POST /create" do
-    context 'with valid parameters' do
+    context "with valid parameters" do
       it "create a new customers with success response" do
         menu_items_params = {
           menu_items: menu_item_1.menu_items,
@@ -67,7 +66,7 @@ RSpec.describe MenuItemsController, type: :request do
         }
       end
 
-      it 'Will successfully update a menu item' do
+      it "Will successfully update a menu item" do
         patch menu_item_path(menu_item_1), params: { menu_item: new_value }
         menu_item_1.reload
         expect(response).to have_http_status(:found)
@@ -83,7 +82,7 @@ RSpec.describe MenuItemsController, type: :request do
         }
       end
 
-      it 'will render with 422 status code' do
+      it "will render with 422 status code" do
         patch menu_item_path(menu_item_1), params: { menu_item: invalid_attribute }
         expect(response).to have_http_status(:unprocessable_entity)
       end
