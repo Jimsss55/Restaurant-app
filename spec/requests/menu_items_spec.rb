@@ -21,7 +21,7 @@ RSpec.describe MenuItemsController, type: :request do
 
     context "with menu item search" do
       it "Retrieve the name of the searched menu items" do
-        get '/menu_items.json?menu_name_query=#{menu_item_1.menu_items[0..3]}'
+        get "/menu_items.json?menu_name_query=#{menu_item_1.menu_items[0..3]}"
         expect(response).to have_http_status(:success)
         json_response = JSON.parse(response.body)
         response_id = json_response.pluck("id")
@@ -30,30 +30,44 @@ RSpec.describe MenuItemsController, type: :request do
     end
   end
 
-  # describe "GET /show" do
-  #   it 'Will display particular menu item' do
-  #     get menu_item_url(menu_item_1)
-  #     binding.pry
-  #     expect(response).to have_http_status(:success)
-  #   end
-  # end
-
   describe "POST /create" do
     context "with valid parameters" do
       it "create a new customers with success response" do
         menu_items_params = {
-          menu_items: menu_item_1.menu_items,
-          menu_item_price: menu_item_1.menu_item_price
+          menu_items: Faker::Food.unique.dish,
+          menu_item_price: Faker::Commerce.price(range: 1..1000)
         }
-        expect { post menu_items_url, params: { menu_item: menu_items_params } }.to change(MenuItem, :count).by(1)
+        expect { post "/menu_items.json", params: { menu_item: menu_items_params } }.to change(MenuItem, :count).by(1)
+        expect(response).to have_http_status(:success)
       end
     end
-  end
 
-  describe "GET /edit" do
-    it "Get a edit page and successful response" do
-      get edit_menu_item_path(menu_item_1.id)
-      expect(response).to have_http_status(:success)
+    context "with invalid parameters" do
+      it "Will not create a new menu item(null MenuItem price) and will send a 422 status code" do
+        menu_item_params = {
+          menu_items: Faker::Food.unique.dish
+        }
+        expect { post "/menu_items.json", params: { menu_item: menu_item_params } }.not_to change(MenuItem, :count)
+        json_response = JSON.parse(response.body)
+        expect(json_response["error"]).to include("Menu item price can't be blank")
+      end
+      it "Will not create a new menu item(MenuItem price less than 1) and will send a 422 status code" do
+        menu_item_params = {
+          menu_items: Faker::Food.unique.dish,
+          menu_item_price: 0
+        }
+        expect { post "/menu_items.json", params: { menu_item: menu_item_params } }.not_to change(MenuItem, :count)
+        json_response = JSON.parse(response.body)
+        expect(json_response["error"]).to include("Menu item price must be greater than or equal to 1")
+      end
+      it "Will not create a new menu items(null MenuItem name) and will send a 422 status code" do
+        menu_item_params = {
+          menu_item_price: Faker::Commerce.price(range: 1..1000)
+        }
+        expect { post "/menu_items.json", params: { menu_item: menu_item_params } }.not_to change(MenuItem, :count)
+        json_response = JSON.parse(response.body)
+        expect(json_response["error"]).to include("Menu items can't be blank")
+      end
     end
   end
 
@@ -61,38 +75,64 @@ RSpec.describe MenuItemsController, type: :request do
     context "With valid parameters" do
       let(:new_value) do
         {
-          menu_items: "CheeseBall",
-          menu_item_price: 20
+          menu_items: Faker::Food.unique.dish,
+          menu_item_price: Faker::Commerce.price(range: 1..1000)
         }
       end
 
       it "Will successfully update a menu item" do
-        patch menu_item_path(menu_item_1), params: { menu_item: new_value }
+        patch "/menu_items/#{menu_item_1.id}.json", params: { menu_item: new_value }
         menu_item_1.reload
-        expect(response).to have_http_status(:found)
-        expect(menu_item_1.menu_items).to eq("CheeseBall")
-        expect(menu_item_1.menu_item_price).to eq(20)
+        expect(response).to have_http_status(:success)
+        expect(menu_item_1.menu_items).to eq(new_value[:menu_items])
+        expect(menu_item_1.menu_item_price).to eq(new_value[:menu_item_price])
       end
     end
 
-    context "with invalid patch attributes" do
+    context "with invalid parameters" do
       let(:invalid_attribute) do
         {
           menu_item_price: 0
         }
       end
-
       it "will render with 422 status code" do
-        patch menu_item_path(menu_item_1), params: { menu_item: invalid_attribute }
+        patch "/menu_items/#{menu_item_1.id}.json", params: { menu_item: invalid_attribute }
         expect(response).to have_http_status(:unprocessable_entity)
+        json_response = JSON.parse(response.body)
+        expect(json_response["error"]).to include("Menu item price must be greater than or equal to 1")
+      end
+    end
+
+    context "with invalid MenuItem id" do
+      let(:valid_attribute) do
+        {
+          menu_items: Faker::Food.unique.dish,
+        }
+      end
+      it "will not patch update MenuItem and render with 404 not found status code" do
+        patch "/menu_items/30.json", params: { menu_item: valid_attribute }
+        expect(response).to have_http_status(:not_found)
+        json_response = JSON.parse(response.body)
+        expect(json_response["error"]).to include("Record not found")
       end
     end
   end
 
   describe "DELETE /destroy" do
-    it "Will delete the requested menu_item and redirect to menu items list" do
-      expect { delete menu_item_path(menu_item_1) }.to change(MenuItem, :count).by(-1)
-      expect(response).to redirect_to(menu_items_path)
+    context "with invalid MenuItem id" do
+      it "will not delete a menu item and return 404 status code" do
+        expect { delete "/menu_items/999999.json" }.not_to change(MenuItem, :count)
+        expect(response).to have_http_status(:not_found)
+        json_response = JSON.parse(response.body)
+        expect(json_response["error"]).to include("Record not found")
+      end
+    end
+
+    context "with valid MenuItem id" do
+      it "Will delete the requested menu_item and redirect to menu items list" do
+        expect { delete "/menu_items/#{menu_item_1.id}.json" }.to change(MenuItem, :count).by(-1)
+        expect(response).to have_http_status(:success)
+      end
     end
   end
 end

@@ -33,10 +33,15 @@ class MenuItemsController < ApplicationController
   def create
     @menu_item = MenuItem.new(menu_item_params)
     if @menu_item.save
-      flash.now[:notice] ="Menu item was successfully created."
-      redirect_to menu_items_path
+      respond_to do |format|
+        format.html { redirect_to menu_items_path, notice: "Menu item was successfully created." }
+        format.json { render json: @menu_item }
+      end
     else
-      render :new, status: :unprocessable_entity
+      respond_to do |format|
+        format.html {   render :new, status: :unprocessable_entity }
+        format.json { render json: {error: @menu_item.errors.full_messages }, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -47,27 +52,36 @@ class MenuItemsController < ApplicationController
   # PATCH/PUT /menu_items/1 or /menu_items/1.json
   def update
     if @menu_item.update(menu_item_params)
-      # binding.pry
-      flash.now[:notice] = "Menu Item was successfully updated."
-      redirect_to menu_items_path
+      respond_to do |format|
+        format.html { redirect_to menu_items_path, notice: "Menu Item was successfully updated." }
+        format.json { render json: @menu_item }
+      end
     else
-      render :edit, status: :unprocessable_entity
+      respond_to do |format|
+        format.html {  render :edit, status: :unprocessable_entity }
+        format.json { render json: { error: @menu_item.errors.full_messages }, status: :unprocessable_entity }
+      end
     end
   end
 
   # DELETE /menu_items/1 or /menu_items/1.json
   def destroy
-    @menu_item.destroy!
-
-    respond_to do |format|
-      format.html do
-        flash.now[:notice] = "Menu item was successfully deleted."
-        redirect_to menu_items_path
+    if @menu_item
+      @menu_item.destroy!
+      respond_to do |format|
+        format.html do
+          flash.now[:notice] = "Menu item was successfully deleted."
+          redirect_to menu_items_path
+        end
+        format.turbo_stream
+        format.json { render json: @menu_item }
       end
-      format.turbo_stream
+    else
+      respond_to do |format|
+        binding.pry
+        format.json { render json: { error: "Menu Item not Found "}, status: :not_found }
+      end
     end
-    # flash[:notice] = "Menu item was successfully deleted."
-    # redirect_to menu_items_path
   end
 
   private
