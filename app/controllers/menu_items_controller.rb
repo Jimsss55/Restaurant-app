@@ -17,6 +17,10 @@ class MenuItemsController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.json { render json: @menu_item }
+    end
   end
 
   # GET /menu_items/new
@@ -28,7 +32,6 @@ class MenuItemsController < ApplicationController
   # POST /menu_items or /menu_items.json
   def create
     @menu_item = MenuItem.new(menu_item_params)
-
     if @menu_item.save
       flash.now[:notice] ="Menu item was successfully created."
       redirect_to menu_items_path
@@ -44,6 +47,7 @@ class MenuItemsController < ApplicationController
   # PATCH/PUT /menu_items/1 or /menu_items/1.json
   def update
     if @menu_item.update(menu_item_params)
+      # binding.pry
       flash.now[:notice] = "Menu Item was successfully updated."
       redirect_to menu_items_path
     else

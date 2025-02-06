@@ -8,7 +8,7 @@ class MenuItem < ApplicationRecord
 
   def self.search_by_menu_name(menu_name_query)
     if menu_name_query.present?
-      where("menu_items LIKE ? ", "%#{menu_name_query}")
+      where("menu_items LIKE ? ", "%#{menu_name_query}%")
     else
       all
     end
