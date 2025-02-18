@@ -35,7 +35,7 @@ class CustomersController < ApplicationController
         respond_to do |format|
           format.html
           format.json {
-            render json: @customers.to_json(include: [ :order_items, :payment_detail ])
+            render json: CustomerSerializer.new(@customers).serializable_hash.to_json
           }
         end
       else
