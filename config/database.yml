@@ -27,7 +27,6 @@ production:
   primary:
     <<: *default
     database: storage/production.sqlite3
-#    database: storage/development.sqlite3
   cache:
     <<: *default
     database: storage/production_cache.sqlite3
