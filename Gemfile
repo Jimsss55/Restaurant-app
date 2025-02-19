@@ -51,13 +51,12 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   gem 'rspec-rails', '~> 7.0.0'
-
-  gem "letter_opener"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
 end
 
 group :test do
@@ -79,3 +78,6 @@ gem 'pry', '~> 0.15.0'
 gem "will_paginate", "~> 4.0"
 
 gem 'jsonapi-serializer'
+
+gem 'letter_opener'
+# gem 'rack-cors'

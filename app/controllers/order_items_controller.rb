@@ -21,7 +21,7 @@ class OrderItemsController < ApplicationController
       @customer.update(payment_amt: @total_payment.to_f)
 
       flash.now[:notice] = "Order item was successfully created"
-      redirect_to new_customer_payment_detail_path(@customer)
+      redirect_to customer_path(@customer)
 
     else
       render :new, status: :unprocessable_entity

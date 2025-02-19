@@ -79,7 +79,7 @@
     <orderEntry type="library" scope="PROVIDED" name="jsonapi-serializer (v2.2.0, RVM: ruby-3.3.6 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="kamal (v2.4.0, RVM: ruby-3.3.6 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="language_server-protocol (v3.17.0.3, RVM: ruby-3.3.6 [global]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="launchy (v3.0.1, RVM: ruby-3.3.6 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="launchy (v3.1.0, RVM: ruby-3.3.6 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="letter_opener (v1.10.0, RVM: ruby-3.3.6 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="logger (v1.6.4, RVM: ruby-3.3.6 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="loofah (v2.24.0, RVM: ruby-3.3.6 [global]) [gem]" level="application" />
@@ -414,7 +414,6 @@
       <value>file://$MODULE_DIR$/public/stylesheets</value>
     </entry>
     <entry key="test/mailers/previews">
-      <value>file://$MODULE_DIR$/spec/mailers/previews</value>
       <value>file://$MODULE_DIR$/test/mailers/previews</value>
       <value>file://$MODULE_DIR$/test/mailers/previews</value>
     </entry>
