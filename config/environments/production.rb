@@ -64,10 +64,10 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:  'mail.smtp2go.com',
+    address:  "mail.smtp2go.com",
     port: 587,  # alternatively: 2525 or 80
-    user_name: 'jimpa',
-    password: 'Jimpa',
+    user_name: "jimpa",
+    password: "Jimpa",
     authentication: :cram_md5,
     enable_starttls_auto: true
   }

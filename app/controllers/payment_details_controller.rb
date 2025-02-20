@@ -10,7 +10,6 @@ class PaymentDetailsController < ApplicationController
 
     @source = "payment_detail"
     @payment = params[:payment]
-
   end
 
   def create

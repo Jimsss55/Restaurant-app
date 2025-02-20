@@ -11,5 +11,4 @@ RSpec.describe "User Authentication", type: :feature do
     fill_in "Confirm Password", with: "password"
     click_button "Sign up"
   end
-
 end

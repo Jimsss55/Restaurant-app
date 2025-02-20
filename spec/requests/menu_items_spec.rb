@@ -106,7 +106,7 @@ RSpec.describe MenuItemsController, type: :request do
     context "with invalid MenuItem id" do
       let(:valid_attribute) do
         {
-          menu_items: Faker::Food.unique.dish,
+          menu_items: Faker::Food.unique.dish
         }
       end
       it "will not patch update MenuItem and render with 404 not found status code" do

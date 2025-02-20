@@ -13,7 +13,6 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/payment_details", type: :request do
-  
   # This should return the minimal set of attributes required to create a valid
   # PaymentDetail. As you add validations to PaymentDetail, be sure to
   # adjust the attributes here as well.

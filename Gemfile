@@ -50,20 +50,19 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
-  gem 'rspec-rails', '~> 7.0.0'
+  gem "rspec-rails", "~> 7.0.0"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-
 end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
-  gem 'factory_bot_rails'
+  gem "factory_bot_rails"
   gem "test-prof", "~> 1.0"
 end
 
@@ -73,11 +72,11 @@ gem "tailwindcss-rails", "~> 3.1"
 
 gem "faker"
 
-gem 'pry', '~> 0.15.0'
+gem "pry", "~> 0.15.0"
 
 gem "will_paginate", "~> 4.0"
 
-gem 'jsonapi-serializer'
+gem "jsonapi-serializer"
 
-gem 'letter_opener'
+gem "letter_opener"
 # gem 'rack-cors'

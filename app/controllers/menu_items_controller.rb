@@ -40,7 +40,7 @@ class MenuItemsController < ApplicationController
     else
       respond_to do |format|
         format.html {   render :new, status: :unprocessable_entity }
-        format.json { render json: {error: @menu_item.errors.full_messages }, status: :unprocessable_entity }
+        format.json { render json: { error: @menu_item.errors.full_messages }, status: :unprocessable_entity }
       end
     end
   end
@@ -79,7 +79,7 @@ class MenuItemsController < ApplicationController
     else
       respond_to do |format|
         binding.pry
-        format.json { render json: { error: "Menu Item not Found "}, status: :not_found }
+        format.json { render json: { error: "Menu Item not Found " }, status: :not_found }
       end
     end
   end

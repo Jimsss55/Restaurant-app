@@ -1,5 +1,4 @@
 module ApplicationHelper
-
   def sortable_table_header(title, column, path_method, **)
     content_tag(:th) do
       sortable_column(title, column, path_method, **)

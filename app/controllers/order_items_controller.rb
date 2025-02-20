@@ -43,20 +43,20 @@ class OrderItemsController < ApplicationController
         @customer.update(payment_amt: @total_payment.to_f)
 
         if @source == "payment_detail"
-          # respond_to do |format|
-          #   format.html do
+              # respond_to do |format|
+              #   format.html do
               flash.now[:notice] = "Payment Order item was successfully updated"
               redirect_to new_customer_payment_detail_path(@customer.id)
-            # end
-            # format.turbo_stream
+          # end
+          # format.turbo_stream
           # end
         else
-          # respond_to do |format|
-          #   format.html do
+              # respond_to do |format|
+              #   format.html do
               flash.now[:notice] = "Order item was successfully updated"
               redirect_to customer_path(@order_item.customer_id)
-            # end
-            # format.turbo_stream
+          # end
+          # format.turbo_stream
           # end
         end
     else

@@ -10,5 +10,4 @@ class CustomerTable < ApplicationRecord
   end
 
   default_scope { where(deleted_at: nil) }
-
 end
